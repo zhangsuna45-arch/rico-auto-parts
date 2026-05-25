@@ -4,7 +4,6 @@ import { memo } from 'react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 
 export const HeroSection = memo(function HeroSection() {
   const t = useTranslations('home');
@@ -107,9 +106,7 @@ export const HeroSection = memo(function HeroSection() {
         </div>
       </div>
 
-      <motion.div
-        whileHover={{ scale: 1.02 }}
-        transition={{ duration: 0.4 }}
+      <div
         style={{
           position: 'relative',
           width: '100%',
@@ -128,7 +125,7 @@ export const HeroSection = memo(function HeroSection() {
           priority
           style={{ objectFit: 'cover' }}
         />
-      </motion.div>
+      </div>
     </section>
   );
 });

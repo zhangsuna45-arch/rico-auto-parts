@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { useState, memo } from 'react';
 
 interface ProductShowcaseProps {
@@ -36,19 +35,10 @@ export const ProductShowcase = memo(function ProductShowcase({
 
   const padPct = ASPECT_MAP[aspectRatio];
 
-  const Wrapper = interactive ? motion.div : 'div';
-  const motionProps = interactive
-    ? {
-        whileHover: { scale: 1.02 },
-        transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] as const },
-      }
-    : {};
-
   return (
     <div className={className} style={{ position: 'relative', ...style }}>
       {/* Outer card — white with subtle shadow */}
-      <Wrapper
-        {...motionProps}
+      <div
         style={{
           position: 'relative',
           borderRadius: '28px',
@@ -56,6 +46,7 @@ export const ProductShowcase = memo(function ProductShowcase({
           background: '#ffffff',
           boxShadow:
             '0 20px 60px rgba(15,23,42,0.08), 0 4px 12px rgba(15,23,42,0.03), inset 0 0 0 1px rgba(255,255,255,0.5)',
+          transition: interactive ? 'transform 0.4s ease' : 'none',
         }}
       >
         {/* Blue-tech gradient background */}
@@ -236,7 +227,7 @@ export const ProductShowcase = memo(function ProductShowcase({
             pointerEvents: 'none',
           }}
         />
-      </Wrapper>
+      </div>
 
       {/* Add shimmer keyframes via style tag */}
       <style

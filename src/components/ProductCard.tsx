@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 import { Link } from '@/i18n/navigation';
-import { motion } from 'framer-motion';
 import { ProductShowcase } from '@/components/ProductShowcase';
 import type { Product } from '@/data/products';
 
@@ -16,9 +15,7 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
       href={`/products/${product.categorySlug}/${product.slug}`}
       style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', height: '100%' }}
     >
-      <motion.div
-        whileHover={{ y: -10 }}
-        transition={{ duration: 0.3 }}
+      <div
         style={{
           background: '#fff',
           borderRadius: '32px',
@@ -29,6 +26,7 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
+          transition: 'transform 0.3s ease',
         }}
       >
         <ProductShowcase
@@ -70,7 +68,7 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
             {product.description}
           </p>
         </div>
-      </motion.div>
+      </div>
     </Link>
   );
 });
