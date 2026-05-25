@@ -12,12 +12,6 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
     formats: ['image/avif', 'image/webp'],
   },
   async redirects() {

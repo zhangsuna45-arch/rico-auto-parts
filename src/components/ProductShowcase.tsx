@@ -207,7 +207,7 @@ export const ProductShowcase = memo(function ProductShowcase({
                 onLoad={() => setLoaded(true)}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src =
-                    'https://images.unsplash.com/photo-1489824904134-891ab64532f1';
+                    '/placeholder-2.svg';
                 }}
               />
             </div>

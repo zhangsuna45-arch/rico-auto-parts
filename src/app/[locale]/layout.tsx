@@ -62,7 +62,7 @@ export async function generateMetadata({
         'Leading OEM automotive component supplier for global markets. Precision-engineered parts since 1998.',
       images: [
         {
-          url: 'https://images.unsplash.com/photo-1489824904134-891ab64532f1',
+          url: '/placeholder-2.svg',
           width: 1200,
           height: 630,
           alt: 'Rico Auto Parts Manufacturing',
@@ -73,7 +73,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: 'Rico Auto Parts - Premium OEM Automotive Components',
       description: 'Leading OEM automotive component supplier for global markets.',
-      images: ['https://images.unsplash.com/photo-1489824904134-891ab64532f1'],
+      images: ['/placeholder-2.svg'],
     },
     alternates: {
       canonical: 'https://www.ricocaraccessories.com',

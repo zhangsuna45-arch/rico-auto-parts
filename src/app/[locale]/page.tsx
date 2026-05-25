@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: HomeProps): Promise<Metadata>
       description: t('defaultDescription'),
       images: [
         {
-          url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70',
+          url: '/placeholder-3.svg',
           width: 1200,
           height: 630,
           alt: 'Rico Car Accessories',
@@ -211,7 +211,7 @@ export default async function Home({ params }: HomeProps) {
           }}
         >
           <Image
-            src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e"
+            src="/placeholder-1.svg"
             alt="Rico Car Accessories"
             fill
             sizes="(max-width: 768px) 100vw, 50vw"

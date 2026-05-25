@@ -4,7 +4,7 @@ import { useState, useRef, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-const FALLBACK = 'https://images.unsplash.com/photo-1489824904134-891ab64532f1';
+const FALLBACK = '/placeholder-2.svg';
 
 export function ProductDetailGallery({
   gallery,

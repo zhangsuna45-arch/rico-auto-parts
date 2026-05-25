@@ -118,7 +118,7 @@ export const HeroSection = memo(function HeroSection() {
         }}
       >
         <Image
-          src="https://images.unsplash.com/photo-1503376780353-7e6692767b70"
+          src="/placeholder-3.svg"
           alt="Premium automotive components"
           fill
           sizes="(max-width: 768px) 100vw, 52vw"
