@@ -27,9 +27,9 @@ export async function generateMetadata({ params }: AboutProps): Promise<Metadata
       'car accessories exporter',
     ],
     alternates: {
-      canonical: `https://www.ricoautoparts.com/${locale}/about`,
+      canonical: `https://www.ricocaraccessories.com/${locale}/about`,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `https://www.ricoautoparts.com/${l}/about`]),
+        routing.locales.map((l) => [l, `https://www.ricocaraccessories.com/${l}/about`]),
       ),
     },
     openGraph: {

@@ -28,9 +28,9 @@ export async function generateMetadata({ params }: BlogListProps): Promise<Metad
       'car electronics tips',
     ],
     alternates: {
-      canonical: `https://www.ricoautoparts.com/${locale}/blog`,
+      canonical: `https://www.ricocaraccessories.com/${locale}/blog`,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `https://www.ricoautoparts.com/${l}/blog`]),
+        routing.locales.map((l) => [l, `https://www.ricocaraccessories.com/${l}/blog`]),
       ),
     },
     openGraph: {

@@ -40,9 +40,9 @@ export async function generateMetadata({
       'wholesale car accessories',
     ],
     alternates: {
-      canonical: `https://www.ricoautoparts.com/${locale}/blog/${post.slug}`,
+      canonical: `https://www.ricocaraccessories.com/${locale}/blog/${post.slug}`,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `https://www.ricoautoparts.com/${l}/blog/${post.slug}`]),
+        routing.locales.map((l) => [l, `https://www.ricocaraccessories.com/${l}/blog/${post.slug}`]),
       ),
     },
     openGraph: {

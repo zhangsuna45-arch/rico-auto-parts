@@ -21,7 +21,7 @@ export async function generateMetadata({
   const { locale } = await params;
 
   return {
-    metadataBase: new URL('https://www.ricoautoparts.com'),
+    metadataBase: new URL('https://www.ricocaraccessories.com'),
     title: {
       default: 'Rico Auto Parts - Premium OEM Automotive Components',
       template: '%s | Rico Auto Parts',
@@ -55,7 +55,7 @@ export async function generateMetadata({
     openGraph: {
       type: 'website',
       locale: locale === 'ar' ? 'ar_SA' : `${locale}_${locale.toUpperCase()}`,
-      url: 'https://www.ricoautoparts.com',
+      url: 'https://www.ricocaraccessories.com',
       siteName: 'Rico Auto Parts',
       title: 'Rico Auto Parts - Premium OEM Automotive Components',
       description:
@@ -76,9 +76,9 @@ export async function generateMetadata({
       images: ['https://images.unsplash.com/photo-1489824904134-891ab64532f1'],
     },
     alternates: {
-      canonical: 'https://www.ricoautoparts.com',
+      canonical: 'https://www.ricocaraccessories.com',
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `https://www.ricoautoparts.com/${l}`]),
+        routing.locales.map((l) => [l, `https://www.ricocaraccessories.com/${l}`]),
       ),
     },
   };

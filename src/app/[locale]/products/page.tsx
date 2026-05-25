@@ -23,9 +23,9 @@ export async function generateMetadata({ params }: ProductsPageProps): Promise<M
     title: t('ourProducts') + ' | ' + t('productCategoriesHeading'),
     description: t('browseCatalog'),
     alternates: {
-      canonical: `https://www.ricoautoparts.com/${locale}/products`,
+      canonical: `https://www.ricocaraccessories.com/${locale}/products`,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `https://www.ricoautoparts.com/${l}/products`]),
+        routing.locales.map((l) => [l, `https://www.ricocaraccessories.com/${l}/products`]),
       ),
     },
     openGraph: {

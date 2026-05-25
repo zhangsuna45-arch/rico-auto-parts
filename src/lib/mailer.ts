@@ -81,7 +81,7 @@ If you have any urgent questions, please contact us via WhatsApp: +86 1985405484
 
 Best regards,
 Rico Car Accessories Team
-https://www.ricoautoparts.com
+https://www.ricocaraccessories.com
   `.trim();
 
   if (transporter && user) {

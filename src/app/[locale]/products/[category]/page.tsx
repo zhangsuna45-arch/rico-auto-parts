@@ -36,9 +36,9 @@ export async function generateMetadata({
     title: `${categoryData.name} | Car Accessories`,
     description: categoryData.description,
     alternates: {
-      canonical: `https://www.ricoautoparts.com/${locale}/products/${category}`,
+      canonical: `https://www.ricocaraccessories.com/${locale}/products/${category}`,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `https://www.ricoautoparts.com/${l}/products/${category}`]),
+        routing.locales.map((l) => [l, `https://www.ricocaraccessories.com/${l}/products/${category}`]),
       ),
     },
     openGraph: {

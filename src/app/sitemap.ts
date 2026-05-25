@@ -3,7 +3,7 @@ import { categories } from '@/data/categories';
 import { locales } from '@/i18n/routing';
 import type { MetadataRoute } from 'next';
 
-const SITE_URL = 'https://www.ricoautoparts.com';
+const SITE_URL = 'https://www.ricocaraccessories.com';
 
 function localize(url: string, locale: string) {
   return `${SITE_URL}/${locale}${url}`;

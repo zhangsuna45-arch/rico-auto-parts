@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://www.ricoautoparts.com/sitemap.xml',
+    sitemap: 'https://www.ricocaraccessories.com/sitemap.xml',
   };
 }

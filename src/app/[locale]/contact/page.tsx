@@ -27,9 +27,9 @@ export async function generateMetadata({ params }: ContactProps): Promise<Metada
       'contact Rico Car Accessories',
     ],
     alternates: {
-      canonical: `https://www.ricoautoparts.com/${locale}/contact`,
+      canonical: `https://www.ricocaraccessories.com/${locale}/contact`,
       languages: Object.fromEntries(
-        routing.locales.map((l) => [l, `https://www.ricoautoparts.com/${l}/contact`]),
+        routing.locales.map((l) => [l, `https://www.ricocaraccessories.com/${l}/contact`]),
       ),
     },
     openGraph: {

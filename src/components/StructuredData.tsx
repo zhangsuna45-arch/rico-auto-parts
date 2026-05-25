@@ -2,7 +2,7 @@ import { JsonLd } from './JsonLd';
 import type { Product } from '@/data/products';
 import type { BlogPost } from '@/data/blogs';
 
-const SITE_URL = 'https://www.ricoautoparts.com';
+const SITE_URL = 'https://www.ricocaraccessories.com';
 
 interface BreadcrumbItem {
   name: string;

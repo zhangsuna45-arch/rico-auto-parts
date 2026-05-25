@@ -41,7 +41,7 @@ export async function generateMetadata({
     return { title: 'Product Not Found' };
   }
 
-  const canonical = `https://www.ricoautoparts.com/${locale}/products/${product.categorySlug}/${product.slug}`;
+  const canonical = `https://www.ricocaraccessories.com/${locale}/products/${product.categorySlug}/${product.slug}`;
 
   return {
     title: `${product.name} | Car Accessories Supplier`,
@@ -60,7 +60,7 @@ export async function generateMetadata({
       languages: Object.fromEntries(
         routing.locales.map((l) => [
           l,
-          `https://www.ricoautoparts.com/${l}/products/${product.categorySlug}/${product.slug}`,
+          `https://www.ricocaraccessories.com/${l}/products/${product.categorySlug}/${product.slug}`,
         ]),
       ),
     },
