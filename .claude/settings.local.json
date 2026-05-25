@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p \"c:\\\\Users\\\\Administrator\\\\AppData\\\\Roaming\\\\Tencent\\\\Marvis\\\\User\\\\oAN1i2aqjbNVv3u61mlwKeImiigE\\\\workspace\\\\conv_19e580451e6_758aadea71dc\\\\output\\\\rico-auto-parts\\\\src\\\\app\\\\products\\\\[category]\\\\[slug]\")",
+      "Bash(mkdir -p \"c:\\\\Users\\\\Administrator\\\\AppData\\\\Roaming\\\\Tencent\\\\Marvis\\\\User\\\\oAN1i2aqjbNVv3u61mlwKeImiigE\\\\workspace\\\\conv_19e580451e6_758aadea71dc\\\\output\\\\rico-auto-parts\\\\src\\\\app\\\\blog\\\\[slug]\")",
+      "Bash(rm -rf \"c:\\\\Users\\\\Administrator\\\\AppData\\\\Roaming\\\\Tencent\\\\Marvis\\\\User\\\\oAN1i2aqjbNVv3u61mlwKeImiigE\\\\workspace\\\\conv_19e580451e6_758aadea71dc\\\\output\\\\rico-auto-parts\\\\src\\\\app\\\\blog\\\\[slug\")",
+      "Bash(rm -rf .next)",
+      "Bash(npm run *)",
+      "Bash(subst X: \"c:\\\\Users\\\\Administrator\\\\AppData\\\\Roaming\\\\Tencent\\\\Marvis\\\\User\\\\oAN1i2aqjbNVv3u61mlwKeImiigE\\\\workspace\\\\conv_19e580451e6_758aadea71dc\\\\output\\\\rico-auto-parts\")",
+      "Read(//d//**)",
+      "Bash(BUILD_DIR=\"X:\\\\\\\\.next\" npm run build)",
+      "Bash(subst X: \"C:\\\\\\\\Users\\\\\\\\Administrator\\\\\\\\AppData\\\\\\\\Roaming\\\\\\\\Tencent\\\\\\\\Marvis\\\\\\\\User\\\\\\\\oAN1i2aqjbNVv3u61mlwKeImiigE\\\\\\\\workspace\\\\\\\\conv_19e580451e6_758aadea71dc\\\\\\\\output\\\\\\\\rico-auto-parts\")"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\Administrator\\AppData\\Roaming\\Tencent\\Marvis\\User\\oAN1i2aqjbNVv3u61mlwKeImiigE\\workspace\\conv_19e580451e6_758aadea71dc\\output\\rico-auto-parts\\src\\app\\products\\[category]",
+      "c:\\Users\\Administrator\\AppData\\Roaming\\Tencent\\Marvis\\User\\oAN1i2aqjbNVv3u61mlwKeImiigE\\workspace\\conv_19e580451e6_758aadea71dc\\output\\rico-auto-parts\\src\\app\\blog",
+      "c:\\Users\\Administrator\\AppData\\Roaming\\Tencent\\Marvis\\User\\oAN1i2aqjbNVv3u61mlwKeImiigE\\workspace\\conv_19e580451e6_758aadea71dc\\output\\rico-auto-parts\\src\\app\\blog\\[slug"
+    ]
+  }
+}
