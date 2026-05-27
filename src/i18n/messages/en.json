@@ -37,7 +37,9 @@
     "browseAll": "← Browse all products",
     "needCustom": "Need a Custom Solution?",
     "customDescription": "Contact us for custom requirements and wholesale pricing",
-    "requestQuote": "Request Quote"
+    "requestQuote": "Request Quote",
+    "product": "product",
+    "products": "products"
   },
   "productDetail": {
     "keyFeatures": "KEY FEATURES",

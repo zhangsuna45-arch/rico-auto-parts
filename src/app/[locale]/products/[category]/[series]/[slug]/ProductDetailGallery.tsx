@@ -1,23 +1,58 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import type { ProductVariant } from '@/data/products';
 
 const FALLBACK = '/placeholder-2.svg';
 
 export function ProductDetailGallery({
   gallery,
   name,
+  variants,
+  activeVariantIndex,
 }: {
   gallery: string[];
   name: string;
+  variants?: ProductVariant[];
+  activeVariantIndex?: number;
 }) {
   const [selected, setSelected] = useState(0);
   const [zoom, setZoom] = useState(false);
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const imageRef = useRef<HTMLDivElement>(null);
+  const thumbRowRef = useRef<HTMLDivElement>(null);
   const t = useTranslations('productDetail');
+
+  // Determine which images to show
+  const hasVariants = variants && variants.length > 0;
+  const activeVariant =
+    hasVariants && activeVariantIndex !== undefined
+      ? variants[activeVariantIndex]
+      : null;
+  const images =
+    activeVariant && activeVariant.gallery.length > 0
+      ? activeVariant.gallery
+      : gallery.length > 0
+        ? gallery
+        : [FALLBACK];
+
+  // Reset selected when variant changes
+  useEffect(() => {
+    setSelected(0);
+    setZoom(false);
+  }, [activeVariantIndex]);
+
+  // Scroll active thumbnail into view
+  useEffect(() => {
+    if (thumbRowRef.current) {
+      const thumb = thumbRowRef.current.children[selected] as HTMLElement | undefined;
+      if (thumb) {
+        thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
+    }
+  }, [selected]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -30,15 +65,16 @@ export function ProductDetailGallery({
     [zoom],
   );
 
-  const images = gallery.length > 0 ? gallery : [FALLBACK];
-
   return (
     <div>
       {/* Main image — blue-tech showcase with zoom */}
       <div
         ref={imageRef}
         onMouseEnter={() => setZoom(true)}
-        onMouseLeave={() => setZoom(false)}
+        onMouseLeave={() => {
+          setZoom(false);
+          setZoomPos({ x: 50, y: 50 });
+        }}
         onMouseMove={handleMouseMove}
         style={{
           position: 'relative',
@@ -114,7 +150,7 @@ export function ProductDetailGallery({
         >
           <Image
             src={images[selected] || FALLBACK}
-            alt={name}
+            alt={`${name} ${selected + 1}`}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
             priority
@@ -164,48 +200,77 @@ export function ProductDetailGallery({
             {t('hoverToZoom')}
           </div>
         )}
+
+        {/* Image counter */}
+        {images.length > 1 && (
+          <div
+            style={{
+              position: 'absolute',
+              bottom: '16px',
+              left: '16px',
+              background: 'rgba(15,23,42,0.6)',
+              color: '#fff',
+              padding: '4px 10px',
+              borderRadius: '6px',
+              fontSize: '12px',
+              fontWeight: 600,
+              backdropFilter: 'blur(4px)',
+            }}
+          >
+            {selected + 1} / {images.length}
+          </div>
+        )}
       </div>
 
-      {/* Thumbnails */}
+      {/* Thumbnails — horizontal scrollable row */}
       {images.length > 1 && (
         <div
+          ref={thumbRowRef}
           style={{
-            display: 'grid',
-            gridTemplateColumns: `repeat(${images.length}, 1fr)`,
-            gap: '12px',
+            display: 'flex',
+            gap: '10px',
             marginTop: '16px',
+            overflowX: 'auto',
+            paddingBottom: '4px',
+            scrollbarWidth: 'thin',
+            scrollbarColor: 'rgba(15,23,42,0.12) transparent',
           }}
         >
           {images.map((src, i) => (
             <button
-              key={i}
+              key={`${src}-${i}`}
               onClick={() => {
                 setSelected(i);
                 setZoom(false);
               }}
               style={{
-                position: 'relative',
-                aspectRatio: '1',
-                borderRadius: '12px',
+                flexShrink: 0,
+                width: '80px',
+                height: '80px',
+                borderRadius: '10px',
                 overflow: 'hidden',
                 border:
                   selected === i
-                    ? '3px solid #2563eb'
-                    : '3px solid transparent',
+                    ? '2px solid #2563eb'
+                    : '2px solid rgba(15,23,42,0.08)',
                 cursor: 'pointer',
                 padding: 0,
-                background: '#e2e8f0',
-                transition: 'border-color 0.2s ease, transform 0.2s ease',
-                transform: selected === i ? 'scale(1.02)' : 'scale(1)',
+                background: '#f1f5f9',
+                transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
+                transform: selected === i ? 'scale(1.05)' : 'scale(1)',
+                boxShadow:
+                  selected === i
+                    ? '0 4px 12px rgba(37,99,235,0.2)'
+                    : '0 1px 3px rgba(15,23,42,0.06)',
                 outline: 'none',
               }}
             >
               <Image
                 src={src}
-                alt={`${name} ${i + 1}`}
-                fill
-                sizes="80px"
-                style={{ objectFit: 'cover' }}
+                alt={`${name} thumbnail ${i + 1}`}
+                width={80}
+                height={80}
+                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                 onError={(e) => {
                   (e.target as HTMLImageElement).src = FALLBACK;
                 }}

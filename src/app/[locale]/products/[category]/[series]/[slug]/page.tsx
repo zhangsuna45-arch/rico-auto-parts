@@ -1,4 +1,5 @@
-import { getProductBySlug, getProducts, getProductsByCategory } from '@/sanity/lib/data';
+import { getProductBySlug, getProducts, getProductsByCategory } from '@/lib/data';
+import { seriesList } from '@/data/series';
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
@@ -13,17 +14,18 @@ import { ProductSchema, BreadcrumbSchema } from '@/components/StructuredData';
 import type { Metadata } from 'next';
 
 interface ProductDetailProps {
-  params: Promise<{ category: string; slug: string; locale: string }>;
+  params: Promise<{ category: string; series: string; slug: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
   const allProducts = await getProducts();
-  const params: { category: string; slug: string; locale: string }[] = [];
+  const params: { category: string; series: string; slug: string; locale: string }[] = [];
   for (const locale of routing.locales) {
     for (const product of allProducts) {
       params.push({
         locale,
         category: product.categorySlug,
+        series: product.seriesSlug,
         slug: product.slug,
       });
     }
@@ -34,14 +36,14 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: ProductDetailProps): Promise<Metadata> {
-  const { category, slug, locale } = await params;
+  const { category, series, slug, locale } = await params;
   const product = await getProductBySlug(slug, category);
 
   if (!product) {
     return { title: 'Product Not Found' };
   }
 
-  const canonical = `https://www.ricocaraccessories.com/${locale}/products/${product.categorySlug}/${product.slug}`;
+  const canonical = `https://www.ricocaraccessories.com/${locale}/products/${product.categorySlug}/${product.seriesSlug}/${product.slug}`;
 
   return {
     title: `${product.name} | Car Accessories Supplier`,
@@ -60,7 +62,7 @@ export async function generateMetadata({
       languages: Object.fromEntries(
         routing.locales.map((l) => [
           l,
-          `https://www.ricocaraccessories.com/${l}/products/${product.categorySlug}/${product.slug}`,
+          `https://www.ricocaraccessories.com/${l}/products/${product.categorySlug}/${product.seriesSlug}/${product.slug}`,
         ]),
       ),
     },
@@ -94,7 +96,7 @@ export async function generateMetadata({
 }
 
 export default async function ProductDetail({ params }: ProductDetailProps) {
-  const { category, slug, locale } = await params;
+  const { category, series, slug, locale } = await params;
   const product = await getProductBySlug(slug, category);
 
   if (!product) {
@@ -108,7 +110,8 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
     .filter((p) => p.id !== product.id)
     .slice(0, 3);
 
-  const productUrl = `/${locale}/products/${product.categorySlug}/${product.slug}`;
+  const productUrl = `/${locale}/products/${product.categorySlug}/${product.seriesSlug}/${product.slug}`;
+  const seriesUrl = `/${locale}/products/${product.categorySlug}/${product.seriesSlug}`;
 
   const sectionStyle: React.CSSProperties = {
     maxWidth: '1280px',
@@ -124,6 +127,7 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
           { name: 'Home', url: `/${locale}` },
           { name: 'Products', url: `/${locale}/products` },
           { name: product.category, url: `/${locale}/products/${product.categorySlug}` },
+          { name: product.series, url: seriesUrl },
           { name: product.name, url: productUrl },
         ]}
       />
@@ -162,6 +166,13 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
             {product.category}
           </Link>
           <span> / </span>
+          <Link
+            href={`/products/${category}/${product.seriesSlug}`}
+            style={{ color: '#2563eb', textDecoration: 'none' }}
+          >
+            {product.series}
+          </Link>
+          <span> / </span>
           <span>{product.name}</span>
         </div>
       </div>
@@ -176,7 +187,12 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
           alignItems: 'start',
         }}
       >
-        <ProductDetailGallery gallery={product.gallery} name={product.name} />
+        <ProductDetailGallery
+          gallery={product.gallery}
+          name={product.name}
+          variants={product.variants}
+          activeVariantIndex={0}
+        />
 
         <div>
           <p
@@ -188,7 +204,7 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
               margin: '0 0 12px 0',
             }}
           >
-            {product.category}
+            {product.category} / {product.series}
           </p>
           <h1
             style={{

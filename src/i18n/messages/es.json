@@ -45,7 +45,9 @@
     "browseAll": "← Ver todos los productos",
     "needCustom": "¿Necesita una Solución Personalizada?",
     "customDescription": "Contáctenos para requisitos OEM personalizados y precios al por mayor",
-    "requestQuote": "Solicitar Cotización"
+    "requestQuote": "Solicitar Cotización",
+    "product": "producto",
+    "products": "productos"
   },
   "productDetail": {
     "keyFeatures": "CARACTERÍSTICAS PRINCIPALES",

@@ -1,6 +1,6 @@
 import { ProductCard } from '@/components/ProductCard';
 import { categories } from '@/data/categories';
-import { getProducts } from '@/sanity/lib/data';
+import { getProducts } from '@/lib/data';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';

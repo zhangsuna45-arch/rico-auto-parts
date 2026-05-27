@@ -45,7 +45,9 @@
     "browseAll": "← تصفح جميع المنتجات",
     "needCustom": "هل تحتاج إلى حل مخصص؟",
     "customDescription": "اتصل بنا للحصول على متطلبات OEM المخصصة وأسعار الجملة",
-    "requestQuote": "طلب عرض سعر"
+    "requestQuote": "طلب عرض سعر",
+    "product": "منتج",
+    "products": "منتجات"
   },
   "productDetail": {
     "keyFeatures": "الميزات الرئيسية",

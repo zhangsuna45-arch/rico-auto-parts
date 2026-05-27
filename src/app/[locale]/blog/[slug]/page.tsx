@@ -1,4 +1,4 @@
-import { getBlogPostBySlug, getBlogPosts } from '@/sanity/lib/data';
+import { getBlogPostBySlug, getBlogPosts } from '@/lib/data';
 import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import { BlogPostingSchema, BreadcrumbSchema } from '@/components/StructuredData';

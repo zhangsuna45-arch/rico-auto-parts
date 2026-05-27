@@ -1,9 +1,37 @@
+export interface VariantGroup {
+  name: string;
+  key: string;
+  values: string[];
+}
+
+export interface ProductVariant {
+  sku: string;
+  name: string;
+  image: string;
+  gallery: string[];
+  specs: Record<string, string>;
+  enterprise: {
+    oem: string;
+    material: string;
+    size: string;
+    moq: string;
+    packaging: string;
+    certification: string;
+  };
+  color?: string;
+  material?: string;
+  style?: string;
+  vehicleType?: string;
+}
+
 export interface Product {
   id: string;
   name: string;
   slug: string;
   category: string;
   categorySlug: string;
+  series: string;
+  seriesSlug: string;
   description: string;
   longDescription: string;
   price: string;
@@ -20,6 +48,8 @@ export interface Product {
     packaging: string;
     certification: string;
   };
+  variants?: ProductVariant[];
+  variantGroups?: VariantGroup[];
 }
 
 export const products: Product[] = [
@@ -32,6 +62,8 @@ export const products: Product[] = [
     slug: 'leather-steering-wheel-cover',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Luxury Leather',
+    seriesSlug: 'luxury-leather',
     description: 'Universal-fit genuine leather steering wheel cover with anti-slip design',
     longDescription:
       'Upgrade your driving experience with this premium leather steering wheel cover. Designed for universal fit on most standard steering wheels (37-39cm), it features a soft genuine leather surface, anti-slip inner lining, and easy 5-minute installation without tools.',
@@ -66,6 +98,52 @@ export const products: Product[] = [
       packaging: 'Individual polybag + color box, 50 pcs/carton',
       certification: 'REACH, RoHS',
     },
+    variantGroups: [
+      { name: 'Style', key: 'style', values: ['Carbon Texture', 'Plain Leather', 'Perforated'] },
+      { name: 'Color', key: 'color', values: ['Black', 'Beige', 'Brown'] },
+    ],
+    variants: [
+      {
+        sku: 'RCO-INT-001-BK-CT',
+        name: 'Carbon Texture - Black',
+        style: 'Carbon Texture',
+        color: 'Black',
+        image: '/placeholder-1.svg',
+        gallery: ['/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-3.svg'],
+        specs: { Material: 'Genuine Leather + Rubber Lining', 'Fit Size': '37-39 cm', Style: 'Carbon Texture', Color: 'Black' },
+        enterprise: { oem: 'RCO-INT-001-BK-CT', material: 'Carbon-Texture Leather + Natural Rubber', size: '38 x 38 x 4 cm', moq: '50 pcs', packaging: 'Individual polybag + color box, 50 pcs/carton', certification: 'REACH, RoHS' },
+      },
+      {
+        sku: 'RCO-INT-001-BG-CT',
+        name: 'Carbon Texture - Beige',
+        style: 'Carbon Texture',
+        color: 'Beige',
+        image: '/placeholder-2.svg',
+        gallery: ['/placeholder-2.svg', '/placeholder-1.svg', '/placeholder-3.svg'],
+        specs: { Material: 'Genuine Leather + Rubber Lining', 'Fit Size': '37-39 cm', Style: 'Carbon Texture', Color: 'Beige' },
+        enterprise: { oem: 'RCO-INT-001-BG-CT', material: 'Carbon-Texture Leather + Natural Rubber', size: '38 x 38 x 4 cm', moq: '50 pcs', packaging: 'Individual polybag + color box, 50 pcs/carton', certification: 'REACH, RoHS' },
+      },
+      {
+        sku: 'RCO-INT-001-BK-PL',
+        name: 'Plain Leather - Black',
+        style: 'Plain Leather',
+        color: 'Black',
+        image: '/placeholder-3.svg',
+        gallery: ['/placeholder-3.svg', '/placeholder-2.svg', '/placeholder-1.svg'],
+        specs: { Material: 'Genuine Leather + Rubber Lining', 'Fit Size': '37-39 cm', Style: 'Plain Leather', Color: 'Black' },
+        enterprise: { oem: 'RCO-INT-001-BK-PL', material: 'Plain Genuine Leather + Natural Rubber', size: '38 x 38 x 4 cm', moq: '50 pcs', packaging: 'Individual polybag + color box, 50 pcs/carton', certification: 'REACH, RoHS' },
+      },
+      {
+        sku: 'RCO-INT-001-BN-PF',
+        name: 'Perforated - Brown',
+        style: 'Perforated',
+        color: 'Brown',
+        image: '/placeholder-4.svg',
+        gallery: ['/placeholder-4.svg', '/placeholder-1.svg', '/placeholder-2.svg'],
+        specs: { Material: 'Genuine Leather + Rubber Lining', 'Fit Size': '37-39 cm', Style: 'Perforated', Color: 'Brown' },
+        enterprise: { oem: 'RCO-INT-001-BN-PF', material: 'Perforated Genuine Leather + Natural Rubber', size: '38 x 38 x 4 cm', moq: '50 pcs', packaging: 'Individual polybag + color box, 50 pcs/carton', certification: 'REACH, RoHS' },
+      },
+    ],
   },
   {
     id: 'int-2',
@@ -73,6 +151,8 @@ export const products: Product[] = [
     slug: 'memory-foam-seat-cushion',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Luxury Leather',
+    seriesSlug: 'luxury-leather',
     description: 'Ergonomic memory foam car seat cushion for long-drive comfort',
     longDescription:
       'Our memory foam seat cushion provides superior comfort for drivers and passengers during long journeys. The high-density memory foam adapts to body shape while the breathable mesh cover keeps you cool. Universal fit for cars, trucks, and SUVs.',
@@ -107,6 +187,47 @@ export const products: Product[] = [
       packaging: 'Compressed vacuum pack, 40 pcs/carton',
       certification: 'SGS, OEKO-TEX',
     },
+    variantGroups: [
+      { name: 'Color', key: 'color', values: ['Black', 'Gray', 'Beige', 'Brown'] },
+    ],
+    variants: [
+      {
+        sku: 'RCO-INT-002-BK',
+        name: 'Memory Foam Seat Cushion - Black',
+        color: 'Black',
+        image: '/placeholder-2.svg',
+        gallery: ['/placeholder-2.svg', '/placeholder-1.svg', '/placeholder-3.svg'],
+        specs: { Material: 'Memory Foam + 3D Mesh Cover', Thickness: '8 cm', Color: 'Black', 'Weight Capacity': 'Up to 150 kg' },
+        enterprise: { oem: 'RCO-INT-002-BK', material: 'Memory Foam + Polyester Mesh', size: '45 x 42 x 8 cm', moq: '100 pcs', packaging: 'Compressed vacuum pack, 40 pcs/carton', certification: 'SGS, OEKO-TEX' },
+      },
+      {
+        sku: 'RCO-INT-002-GY',
+        name: 'Memory Foam Seat Cushion - Gray',
+        color: 'Gray',
+        image: '/placeholder-1.svg',
+        gallery: ['/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-3.svg'],
+        specs: { Material: 'Memory Foam + 3D Mesh Cover', Thickness: '8 cm', Color: 'Gray', 'Weight Capacity': 'Up to 150 kg' },
+        enterprise: { oem: 'RCO-INT-002-GY', material: 'Memory Foam + Polyester Mesh', size: '45 x 42 x 8 cm', moq: '100 pcs', packaging: 'Compressed vacuum pack, 40 pcs/carton', certification: 'SGS, OEKO-TEX' },
+      },
+      {
+        sku: 'RCO-INT-002-BG',
+        name: 'Memory Foam Seat Cushion - Beige',
+        color: 'Beige',
+        image: '/placeholder-3.svg',
+        gallery: ['/placeholder-3.svg', '/placeholder-1.svg', '/placeholder-2.svg'],
+        specs: { Material: 'Memory Foam + 3D Mesh Cover', Thickness: '8 cm', Color: 'Beige', 'Weight Capacity': 'Up to 150 kg' },
+        enterprise: { oem: 'RCO-INT-002-BG', material: 'Memory Foam + Polyester Mesh', size: '45 x 42 x 8 cm', moq: '100 pcs', packaging: 'Compressed vacuum pack, 40 pcs/carton', certification: 'SGS, OEKO-TEX' },
+      },
+      {
+        sku: 'RCO-INT-002-BN',
+        name: 'Memory Foam Seat Cushion - Brown',
+        color: 'Brown',
+        image: '/placeholder-4.svg',
+        gallery: ['/placeholder-4.svg', '/placeholder-2.svg', '/placeholder-1.svg'],
+        specs: { Material: 'Memory Foam + 3D Mesh Cover', Thickness: '8 cm', Color: 'Brown', 'Weight Capacity': 'Up to 150 kg' },
+        enterprise: { oem: 'RCO-INT-002-BN', material: 'Memory Foam + Polyester Mesh', size: '45 x 42 x 8 cm', moq: '100 pcs', packaging: 'Compressed vacuum pack, 40 pcs/carton', certification: 'SGS, OEKO-TEX' },
+      },
+    ],
   },
   {
     id: 'int-3',
@@ -114,6 +235,8 @@ export const products: Product[] = [
     slug: '3d-floor-mats',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Floor Protection',
+    seriesSlug: 'floor-protection',
     description: 'Custom-fit 3D car floor mats with anti-slip backing, waterproof and durable',
     longDescription:
       'Heavy-duty 3D floor mats designed to protect your vehicle interior from mud, water, snow, and daily wear. The raised edge design traps liquids and debris while the anti-slip backing keeps mats firmly in place. Available for most popular car models.',
@@ -148,6 +271,62 @@ export const products: Product[] = [
       packaging: 'Folded polybag set, 10 sets/carton',
       certification: 'REACH, RoHS, SGS',
     },
+    variantGroups: [
+      { name: 'Color', key: 'color', values: ['Black', 'Gray', 'Beige', 'Brown'] },
+      { name: 'Vehicle Type', key: 'vehicleType', values: ['Sedan', 'SUV', 'Truck'] },
+    ],
+    variants: [
+      {
+        sku: 'RCO-INT-003-BK-SD',
+        name: 'Floor Mats Black - Sedan',
+        color: 'Black',
+        vehicleType: 'Sedan',
+        image: '/placeholder-3.svg',
+        gallery: ['/placeholder-3.svg', '/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-4.svg'],
+        specs: { Material: 'TPE + XPE Composite', Thickness: '4.5 mm', Color: 'Black', 'Fit Type': 'Custom-Fit Sedan', 'Set Includes': 'Front Pair + Rear (3-piece)' },
+        enterprise: { oem: 'RCO-INT-003-BK-SD', material: 'TPE + XPE Composite', size: '72 x 52 x 14 cm', moq: '50 sets per model', packaging: 'Folded polybag set, 10 sets/carton', certification: 'REACH, RoHS, SGS' },
+      },
+      {
+        sku: 'RCO-INT-003-GY-SD',
+        name: 'Floor Mats Gray - Sedan',
+        color: 'Gray',
+        vehicleType: 'Sedan',
+        image: '/placeholder-1.svg',
+        gallery: ['/placeholder-1.svg', '/placeholder-3.svg', '/placeholder-2.svg', '/placeholder-4.svg'],
+        specs: { Material: 'TPE + XPE Composite', Thickness: '4.5 mm', Color: 'Gray', 'Fit Type': 'Custom-Fit Sedan', 'Set Includes': 'Front Pair + Rear (3-piece)' },
+        enterprise: { oem: 'RCO-INT-003-GY-SD', material: 'TPE + XPE Composite', size: '72 x 52 x 14 cm', moq: '50 sets per model', packaging: 'Folded polybag set, 10 sets/carton', certification: 'REACH, RoHS, SGS' },
+      },
+      {
+        sku: 'RCO-INT-003-BK-SUV',
+        name: 'Floor Mats Black - SUV',
+        color: 'Black',
+        vehicleType: 'SUV',
+        image: '/placeholder-2.svg',
+        gallery: ['/placeholder-2.svg', '/placeholder-1.svg', '/placeholder-3.svg', '/placeholder-4.svg'],
+        specs: { Material: 'TPE + XPE Composite', Thickness: '4.5 mm', Color: 'Black', 'Fit Type': 'Custom-Fit SUV', 'Set Includes': 'Front Pair + Rear (3-piece)' },
+        enterprise: { oem: 'RCO-INT-003-BK-SUV', material: 'TPE + XPE Composite', size: '78 x 56 x 15 cm', moq: '50 sets per model', packaging: 'Folded polybag set, 10 sets/carton', certification: 'REACH, RoHS, SGS' },
+      },
+      {
+        sku: 'RCO-INT-003-BN-SUV',
+        name: 'Floor Mats Brown - SUV',
+        color: 'Brown',
+        vehicleType: 'SUV',
+        image: '/placeholder-4.svg',
+        gallery: ['/placeholder-4.svg', '/placeholder-2.svg', '/placeholder-1.svg', '/placeholder-3.svg'],
+        specs: { Material: 'TPE + XPE Composite', Thickness: '4.5 mm', Color: 'Brown', 'Fit Type': 'Custom-Fit SUV', 'Set Includes': 'Front Pair + Rear (3-piece)' },
+        enterprise: { oem: 'RCO-INT-003-BN-SUV', material: 'TPE + XPE Composite', size: '78 x 56 x 15 cm', moq: '50 sets per model', packaging: 'Folded polybag set, 10 sets/carton', certification: 'REACH, RoHS, SGS' },
+      },
+      {
+        sku: 'RCO-INT-003-BK-TR',
+        name: 'Floor Mats Black - Truck',
+        color: 'Black',
+        vehicleType: 'Truck',
+        image: '/placeholder-3.svg',
+        gallery: ['/placeholder-3.svg', '/placeholder-4.svg', '/placeholder-1.svg', '/placeholder-2.svg'],
+        specs: { Material: 'TPE + XPE Composite', Thickness: '5 mm Heavy-Duty', Color: 'Black', 'Fit Type': 'Custom-Fit Truck', 'Set Includes': 'Front Pair + Rear (3-piece)' },
+        enterprise: { oem: 'RCO-INT-003-BK-TR', material: 'TPE + XPE Composite (Heavy-Duty)', size: '82 x 60 x 16 cm', moq: '50 sets per model', packaging: 'Folded polybag set, 10 sets/carton', certification: 'REACH, RoHS, SGS' },
+      },
+    ],
   },
   {
     id: 'int-4',
@@ -155,6 +334,8 @@ export const products: Product[] = [
     slug: 'dashboard-mat',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Dash & Console',
+    seriesSlug: 'dash-console',
     description: 'Anti-slip dashboard protection mat, reduces glare and protects from UV damage',
     longDescription:
       'Protect your dashboard from sun damage and reduce windshield glare with this premium non-slip dashboard mat. Made from durable, heat-resistant material with a velvet-like finish that prevents items from sliding.',
@@ -196,6 +377,8 @@ export const products: Product[] = [
     slug: 'tissue-box-holder',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Sun & Comfort',
+    seriesSlug: 'sun-comfort',
     description: 'Elegant car tissue box with sun visor mounting, leather finish',
     longDescription:
       'Keep tissues neatly organized and within reach with this stylish car tissue box holder. Designed to clip onto the sun visor or sit in the center console, with a premium leather-look finish that complements any vehicle interior.',
@@ -237,6 +420,8 @@ export const products: Product[] = [
     slug: 'armrest-box',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Luxury Leather',
+    seriesSlug: 'luxury-leather',
     description: 'Universal center console armrest box with storage, soft PU leather cover',
     longDescription:
       'Add extra storage and comfort to your vehicle with this universal-fit armrest box. The padded PU leather top provides comfortable arm support while driving, and the spacious interior keeps personal items organized and hidden.',
@@ -278,6 +463,8 @@ export const products: Product[] = [
     slug: 'car-perfume-diffuser',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Sun & Comfort',
+    seriesSlug: 'sun-comfort',
     description: 'Long-lasting car air freshener with elegant metal design, adjustable scent',
     longDescription:
       'Elevate your driving environment with this premium car perfume diffuser. The aerospace-grade aluminum body houses a refillable fragrance cartridge with adjustable scent intensity. Available in multiple elegant scents for a fresh driving experience.',
@@ -319,6 +506,8 @@ export const products: Product[] = [
     slug: 'car-sun-shade',
     category: 'Interior Accessories',
     categorySlug: 'interior-accessories',
+    series: 'Sun & Comfort',
+    seriesSlug: 'sun-comfort',
     description: 'Foldable UV-blocking sun shade for windshield and side windows',
     longDescription:
       'Keep your car interior cool and protected with this UV-blocking sun shade. The double-layer design reflects sunlight effectively while the foldable frame makes storage quick and easy. Available in universal and custom sizes.',
@@ -364,6 +553,8 @@ export const products: Product[] = [
     slug: 'car-charger',
     category: 'Car Electronics',
     categorySlug: 'car-electronics',
+    series: 'Power & Charging',
+    seriesSlug: 'power-charging',
     description: 'Dual-port USB-C PD fast charger with smart IC protection',
     longDescription:
       'Power up your devices on the go with this dual-port fast car charger. USB-C PD 30W + USB-A QC 3.0 deliver rapid charging for phones, tablets, and accessories. Built-in smart IC chip provides over-current, over-voltage, and short-circuit protection.',
@@ -398,6 +589,52 @@ export const products: Product[] = [
       packaging: 'Individual color box, 200 pcs/carton',
       certification: 'CE, FCC, RoHS',
     },
+    variantGroups: [
+      { name: 'Color', key: 'color', values: ['Black', 'Silver', 'Blue'] },
+      { name: 'Style', key: 'style', values: ['Standard', 'LED Ring', 'Mini'] },
+    ],
+    variants: [
+      {
+        sku: 'RCO-ELC-001-BK-STD',
+        name: 'Car Charger Black - Standard',
+        color: 'Black',
+        style: 'Standard',
+        image: '/placeholder-1.svg',
+        gallery: ['/placeholder-1.svg', '/placeholder-2.svg', '/placeholder-3.svg'],
+        specs: { 'USB-C Output': 'PD 30W', 'USB-A Output': 'QC 3.0 18W', Color: 'Black', Style: 'Standard', Material: 'Aluminum Alloy + Fireproof PC' },
+        enterprise: { oem: 'RCO-ELC-001-BK-STD', material: 'Aluminum Alloy + Fireproof PC', size: '5.8 x 2.5 cm', moq: '100 pcs', packaging: 'Individual color box, 200 pcs/carton', certification: 'CE, FCC, RoHS' },
+      },
+      {
+        sku: 'RCO-ELC-001-SL-LED',
+        name: 'Car Charger Silver - LED Ring',
+        color: 'Silver',
+        style: 'LED Ring',
+        image: '/placeholder-2.svg',
+        gallery: ['/placeholder-2.svg', '/placeholder-1.svg', '/placeholder-3.svg'],
+        specs: { 'USB-C Output': 'PD 30W', 'USB-A Output': 'QC 3.0 18W', Color: 'Silver', Style: 'LED Ring', Material: 'Aluminum Alloy + Fireproof PC' },
+        enterprise: { oem: 'RCO-ELC-001-SL-LED', material: 'Aluminum Alloy + Fireproof PC', size: '6.2 x 2.8 cm', moq: '100 pcs', packaging: 'Individual color box, 200 pcs/carton', certification: 'CE, FCC, RoHS' },
+      },
+      {
+        sku: 'RCO-ELC-001-BL-MINI',
+        name: 'Car Charger Blue - Mini',
+        color: 'Blue',
+        style: 'Mini',
+        image: '/placeholder-3.svg',
+        gallery: ['/placeholder-3.svg', '/placeholder-1.svg', '/placeholder-2.svg'],
+        specs: { 'USB-C Output': 'PD 20W', 'USB-A Output': 'QC 3.0 18W', Color: 'Blue', Style: 'Mini Compact', Material: 'Fireproof PC' },
+        enterprise: { oem: 'RCO-ELC-001-BL-MINI', material: 'Fireproof PC', size: '4.5 x 2.2 cm', moq: '150 pcs', packaging: 'Individual color box, 300 pcs/carton', certification: 'CE, FCC, RoHS' },
+      },
+      {
+        sku: 'RCO-ELC-001-BK-LED',
+        name: 'Car Charger Black - LED Ring',
+        color: 'Black',
+        style: 'LED Ring',
+        image: '/placeholder-4.svg',
+        gallery: ['/placeholder-4.svg', '/placeholder-2.svg', '/placeholder-1.svg'],
+        specs: { 'USB-C Output': 'PD 30W', 'USB-A Output': 'QC 3.0 18W', Color: 'Black', Style: 'LED Ring', Material: 'Aluminum Alloy + Fireproof PC' },
+        enterprise: { oem: 'RCO-ELC-001-BK-LED', material: 'Aluminum Alloy + Fireproof PC', size: '6.2 x 2.8 cm', moq: '100 pcs', packaging: 'Individual color box, 200 pcs/carton', certification: 'CE, FCC, RoHS' },
+      },
+    ],
   },
   {
     id: 'elec-2',
@@ -405,6 +642,8 @@ export const products: Product[] = [
     slug: 'hud-display',
     category: 'Car Electronics',
     categorySlug: 'car-electronics',
+    series: 'Display & Gauge',
+    seriesSlug: 'display-gauge',
     description: 'Heads-up display with speed, RPM, and voltage projection on windshield',
     longDescription:
       'Enhance driving safety with this crystal-clear HUD display. Projects speed, RPM, voltage, and fuel consumption onto the windshield so you never take your eyes off the road. Auto-adjusts brightness for day and night driving.',
@@ -446,6 +685,8 @@ export const products: Product[] = [
     slug: 'ambient-light-kit',
     category: 'Car Electronics',
     categorySlug: 'car-electronics',
+    series: 'Interior LED',
+    seriesSlug: 'interior-led',
     description: 'App-controlled RGB LED strip lights for car interior decoration',
     longDescription:
       'Transform your car interior with this app-controlled LED ambient lighting kit. Choose from 16 million colors, music sync mode, and multiple dynamic effects. Flexible fiber optic strips install easily under dash, seats, and door panels.',
@@ -487,6 +728,8 @@ export const products: Product[] = [
     slug: 'car-fan',
     category: 'Car Electronics',
     categorySlug: 'car-electronics',
+    series: 'Power & Charging',
+    seriesSlug: 'power-charging',
     description: 'Quiet oscillating 12V car fan with adjustable speed and clip mount',
     longDescription:
       'Stay cool during every drive with this powerful yet quiet 12V car fan. The dual-head design provides wide-area airflow, while the sturdy clip mount attaches securely to dashboard or backseat. Perfect for summer drives and rideshare vehicles.',
@@ -528,6 +771,8 @@ export const products: Product[] = [
     slug: 'keyless-entry',
     category: 'Car Electronics',
     categorySlug: 'car-electronics',
+    series: 'Display & Gauge',
+    seriesSlug: 'display-gauge',
     description: 'Remote keyless entry kit with central locking and alarm for universal cars',
     longDescription:
       'Upgrade your vehicle with this universal keyless entry system. Includes two remote key fobs, central locking actuator, and smart alarm features. Compatible with most 12V vehicles and suitable for professional installation by any auto shop.',
@@ -569,6 +814,8 @@ export const products: Product[] = [
     slug: 'window-switch',
     category: 'Car Electronics',
     categorySlug: 'car-electronics',
+    series: 'Power & Charging',
+    seriesSlug: 'power-charging',
     description: 'Universal 4-door power window switch with auto up/down and LED backlight',
     longDescription:
       'Replace worn or broken window switches with this high-quality universal kit. Ergonomic design with auto up/down function and soft LED backlight for night visibility. Compatible with most 12V vehicle door panels after minor modification.',
@@ -614,6 +861,8 @@ export const products: Product[] = [
     slug: 'led-headlight',
     category: 'Car Lighting',
     categorySlug: 'car-lighting',
+    series: 'Headlight & Fog',
+    seriesSlug: 'headlight-fog',
     description: 'High-brightness LED headlight bulbs with 6000K cool white, plug-and-play',
     longDescription:
       'Upgrade your halogen headlights to brilliant LED with this plug-and-play conversion kit. Producing 6000K cool white light at 12,000 lumens per pair, these bulbs offer 300% more brightness than stock halogens with a 50,000-hour lifespan.',
@@ -655,6 +904,8 @@ export const products: Product[] = [
     slug: 'fog-lamp',
     category: 'Car Lighting',
     categorySlug: 'car-lighting',
+    series: 'Headlight & Fog',
+    seriesSlug: 'headlight-fog',
     description: 'Universal LED fog lamps with projector lens and daytime running light',
     longDescription:
       'Enhance visibility in fog, rain, and snow with these high-performance LED fog lamps. The projector lens provides a focused beam pattern while the integrated DRL ring adds modern styling. Universal mounting brackets included.',
@@ -696,6 +947,8 @@ export const products: Product[] = [
     slug: 'truck-light-bar',
     category: 'Car Lighting',
     categorySlug: 'car-lighting',
+    series: 'Truck & Off-Road',
+    seriesSlug: 'truck-offroad',
     description: 'High-power LED light bar for trucks, SUVs and off-road vehicles',
     longDescription:
       'Illuminate the darkest trails with this heavy-duty LED light bar. The combination beam pattern provides both spot and flood coverage across 150m+ range. Rugged die-cast housing with IP69K waterproofing for extreme off-road conditions.',
@@ -737,6 +990,8 @@ export const products: Product[] = [
     slug: 'side-marker-lamp',
     category: 'Car Lighting',
     categorySlug: 'car-lighting',
+    series: 'Accent Lighting',
+    seriesSlug: 'accent-lighting',
     description: 'Smoked LED side marker lights with sequential turn signal',
     longDescription:
       'Add modern styling and safety with these smoked LED side marker lamps. The sequential turn signal function grabs attention instantly, while the sleek smoked lens blends seamlessly with modern car body panels.',
@@ -778,6 +1033,8 @@ export const products: Product[] = [
     slug: 'daytime-running-light',
     category: 'Car Lighting',
     categorySlug: 'car-lighting',
+    series: 'Truck & Off-Road',
+    seriesSlug: 'truck-offroad',
     description: 'Flexible LED DRL strip with turn signal function, universal retrofit',
     longDescription:
       'Add modern DRL safety to any vehicle with this flexible LED strip kit. The dual-mode operation automatically dims with turn signal, and the flexible design allows custom placement on any bumper or grille shape.',
@@ -823,6 +1080,8 @@ export const products: Product[] = [
     slug: 'car-body-kit',
     category: 'Exterior Accessories',
     categorySlug: 'exterior-accessories',
+    series: 'Body Styling',
+    seriesSlug: 'body-styling',
     description: 'ABS front lip splitter and side skirt kit for sporty styling',
     longDescription:
       'Transform your car exterior with this universal body kit. The matte black ABS front lip splitter and side skirts add an aggressive sporty look without permanent modification. Universal fit with adjustable brackets for most sedans and hatchbacks.',
@@ -864,6 +1123,8 @@ export const products: Product[] = [
     slug: 'car-mirror',
     category: 'Exterior Accessories',
     categorySlug: 'exterior-accessories',
+    series: 'Mirror & Window',
+    seriesSlug: 'mirror-window',
     description: 'Universal power mirror with LED turn signal and electric folding',
     longDescription:
       'Upgrade your vehicle with this power-folding side mirror featuring integrated LED turn signals and electric adjustment. The universal design fits most standard mirror mounts with an included adapter plate kit.',
@@ -905,6 +1166,8 @@ export const products: Product[] = [
     slug: 'shark-fin-antenna',
     category: 'Exterior Accessories',
     categorySlug: 'exterior-accessories',
+    series: 'Antenna & Styling',
+    seriesSlug: 'antenna-styling',
     description: 'Stylish shark fin antenna with built-in signal amplifier, universal fit',
     longDescription:
       'Replace your old whip antenna with this sleek shark fin design. The built-in signal amplifier ensures strong radio reception while the aerodynamic shape adds modern style. Easy 3M tape installation on any car roof.',
@@ -946,6 +1209,8 @@ export const products: Product[] = [
     slug: 'car-logo-badge',
     category: 'Exterior Accessories',
     categorySlug: 'exterior-accessories',
+    series: 'Body Styling',
+    seriesSlug: 'body-styling',
     description: 'Custom 3D chrome car emblem with LED backlight option',
     longDescription:
       'Make your car stand out with this premium 3D chrome badge emblem. Available with optional LED backlight that illuminates the logo at night. Full customization available for brand-specific designs.',
@@ -987,6 +1252,8 @@ export const products: Product[] = [
     slug: 'door-handle-cover',
     category: 'Exterior Accessories',
     categorySlug: 'exterior-accessories',
+    series: 'Mirror & Window',
+    seriesSlug: 'mirror-window',
     description: 'ABS chrome-plated door handle covers, scratch protection with premium look',
     longDescription:
       'Protect your door handles from scratches and add a premium chrome accent with these easy-install covers. Precision-molded ABS with mirror chrome finish snaps directly over original handles without tools or adhesives.',
@@ -1032,6 +1299,8 @@ export const products: Product[] = [
     slug: 'phone-holder',
     category: 'Safety & Utility',
     categorySlug: 'safety-utility',
+    series: 'Child & Travel',
+    seriesSlug: 'child-travel',
     description: 'Strong magnetic phone mount with 360° rotation, air vent and dashboard clip',
     longDescription:
       'Keep your phone securely mounted for hands-free navigation with this powerful magnetic phone holder. The neodymium magnet holds devices firmly even on bumpy roads, while the 360° rotation allows any viewing angle.',
@@ -1073,6 +1342,8 @@ export const products: Product[] = [
     slug: 'air-inflator',
     category: 'Safety & Utility',
     categorySlug: 'safety-utility',
+    series: 'Emergency & Repair',
+    seriesSlug: 'emergency-repair',
     description: 'Digital 12V electric car tire pump with auto-stop and LED light',
     longDescription:
       'Never get stranded with a flat tire again. This compact digital air pump inflates a standard car tire in under 3 minutes. Features auto-stop at preset pressure, bright LED emergency light, and fits in your spare tire compartment.',
@@ -1114,6 +1385,8 @@ export const products: Product[] = [
     slug: 'car-refrigerator',
     category: 'Safety & Utility',
     categorySlug: 'safety-utility',
+    series: 'Child & Travel',
+    seriesSlug: 'child-travel',
     description: 'Compact car mini fridge 8L, cool and warm function for road trips',
     longDescription:
       'Keep drinks cold and food fresh on every road trip with this portable thermoelectric mini fridge. The 8L capacity fits 12 standard cans, and the dual cool/warm function switches easily. Perfect for family trips, picnics, and daily commutes.',
@@ -1155,6 +1428,8 @@ export const products: Product[] = [
     slug: 'baby-seat',
     category: 'Safety & Utility',
     categorySlug: 'safety-utility',
+    series: 'Child & Travel',
+    seriesSlug: 'child-travel',
     description: 'ECE R44/04 certified car baby seat, 5-point harness, 360° rotation',
     longDescription:
       'Ensure your child safety with this ECE-certified car baby seat. The 360° swivel base makes loading and unloading effortless, while the 5-point harness and side-impact protection provide maximum safety for children 0-4 years (0-18kg).',
@@ -1196,6 +1471,8 @@ export const products: Product[] = [
     slug: 'snow-chain',
     category: 'Safety & Utility',
     categorySlug: 'safety-utility',
+    series: 'Emergency & Repair',
+    seriesSlug: 'emergency-repair',
     description: 'Universal adjustable tire snow chains for passenger cars, quick install',
     longDescription:
       'Be prepared for winter roads with these universal snow chains. The manganese steel construction provides excellent grip on snow and ice, while the quick-install design fits most passenger car tires without moving the vehicle.',
@@ -1237,6 +1514,8 @@ export const products: Product[] = [
     slug: 'jump-starter',
     category: 'Safety & Utility',
     categorySlug: 'safety-utility',
+    series: 'Emergency & Repair',
+    seriesSlug: 'emergency-repair',
     description: 'Portable 2000A car jump starter with USB-C power bank and LED flashlight',
     longDescription:
       'Never wait for roadside assistance again. This compact 2000A jump starter can start 12V vehicles up to 8.0L gas or 6.5L diesel engines. Doubles as a 20000mAh power bank with USB-C fast charging and built-in LED SOS light.',
@@ -1278,6 +1557,8 @@ export const products: Product[] = [
     slug: 'trunk-organizer',
     category: 'Safety & Utility',
     categorySlug: 'safety-utility',
+    series: 'Child & Travel',
+    seriesSlug: 'child-travel',
     description: 'Foldable waterproof trunk storage box with adjustable compartments',
     longDescription:
       'Keep your trunk neat and organized with this heavy-duty foldable organizer. The waterproof Oxford fabric and reinforced base hold up to 30kg, while adjustable dividers let you customize storage for groceries, tools, and emergency supplies.',

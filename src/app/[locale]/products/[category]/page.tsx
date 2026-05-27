@@ -1,6 +1,6 @@
-import { getProductsByCategory } from '@/sanity/lib/data';
+import { getProductsByCategory } from '@/lib/data';
 import { categories as allCategories } from '@/data/categories';
-import { ProductCard } from '@/components/ProductCard';
+import { seriesList, getSeriesByCategory } from '@/data/series';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
@@ -57,7 +57,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     notFound();
   }
 
+  const categorySeries = getSeriesByCategory(category);
   const categoryProducts = await getProductsByCategory(category);
+
+  // Count products per series
+  function getProductCount(seriesSlug: string): number {
+    return categoryProducts.filter((p) => p.seriesSlug === seriesSlug).length;
+  }
 
   return (
     <div style={{ background: '#f7f9fc', minHeight: '100vh' }}>
@@ -111,7 +117,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             color: 'rgba(255,255,255,0.9)',
             fontWeight: 700,
             letterSpacing: '4px',
-            marginBottom: '20px',
             margin: '0 0 20px 0',
           }}
         >
@@ -122,7 +127,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             fontSize: '64px',
             fontWeight: 900,
             lineHeight: 1.1,
-            marginBottom: '20px',
             margin: '0 0 20px 0',
           }}
         >
@@ -133,7 +137,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </p>
       </div>
 
-      {/* Products Grid */}
+      {/* Series Cards Grid */}
       <section
         style={{
           maxWidth: '1280px',
@@ -141,17 +145,120 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           padding: '72px 24px',
         }}
       >
-        {categoryProducts.length > 0 ? (
+        {categorySeries.length > 0 ? (
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
               gap: '32px',
             }}
           >
-            {categoryProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {categorySeries.map((s) => {
+              const count = getProductCount(s.slug);
+              return (
+                <Link
+                  key={s.id}
+                  href={`/products/${category}/${s.slug}`}
+                  style={{ textDecoration: 'none' }}
+                >
+                  <div
+                    style={{
+                      background: '#fff',
+                      borderRadius: '24px',
+                      overflow: 'hidden',
+                      border: '1px solid rgba(15,23,42,0.06)',
+                      boxShadow: '0 10px 30px rgba(15,23,42,0.04)',
+                      cursor: 'pointer',
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                      height: '100%',
+                    }}
+                  >
+                    {/* Series image placeholder */}
+                    <div
+                      style={{
+                        background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f7fa 100%)',
+                        height: '220px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        position: 'relative',
+                        overflow: 'hidden',
+                      }}
+                    >
+                      {/* Dot grid pattern */}
+                      <div
+                        style={{
+                          position: 'absolute',
+                          inset: 0,
+                          backgroundImage:
+                            'radial-gradient(circle, rgba(37,99,235,0.08) 1px, transparent 1px)',
+                          backgroundSize: '20px 20px',
+                        }}
+                      />
+                      {/* Series name monogram */}
+                      <div
+                        style={{
+                          fontSize: '72px',
+                          fontWeight: 900,
+                          color: 'rgba(37,99,235,0.12)',
+                          letterSpacing: '-4px',
+                          position: 'relative',
+                          zIndex: 1,
+                        }}
+                      >
+                        {s.name.charAt(0)}
+                      </div>
+                    </div>
+
+                    <div style={{ padding: '32px' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          marginBottom: '12px',
+                        }}
+                      >
+                        <h3
+                          style={{
+                            fontSize: '28px',
+                            fontWeight: 900,
+                            color: '#0f172a',
+                            margin: 0,
+                            lineHeight: 1.2,
+                          }}
+                        >
+                          {s.name}
+                        </h3>
+                        <span
+                          style={{
+                            background: 'rgba(37,99,235,0.08)',
+                            color: '#2563eb',
+                            padding: '4px 12px',
+                            borderRadius: '20px',
+                            fontSize: '13px',
+                            fontWeight: 700,
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {count} {count === 1 ? t('product') : t('products')}
+                        </span>
+                      </div>
+                      <p
+                        style={{
+                          fontSize: '15px',
+                          color: '#64748b',
+                          lineHeight: 1.6,
+                          margin: 0,
+                        }}
+                      >
+                        {s.description}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <div style={{ textAlign: 'center', padding: '60px 20px' }}>
@@ -194,9 +301,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             style={{
               fontSize: '36px',
               fontWeight: 900,
-              marginBottom: '16px',
-              color: '#0f172a',
               margin: '0 0 16px 0',
+              color: '#0f172a',
             }}
           >
             {t('needCustom')}
@@ -205,7 +311,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             style={{
               fontSize: '18px',
               color: '#64748b',
-              marginBottom: '30px',
               margin: '0 0 30px 0',
             }}
           >

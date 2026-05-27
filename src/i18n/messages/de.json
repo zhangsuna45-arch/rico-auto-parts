@@ -45,7 +45,9 @@
     "browseAll": "← Alle Produkte durchsuchen",
     "needCustom": "Benötigen Sie eine Maßgeschneiderte Lösung?",
     "customDescription": "Kontaktieren Sie uns für kundenspezifische OEM-Anforderungen und Großhandelspreise",
-    "requestQuote": "Angebot Anfordern"
+    "requestQuote": "Angebot Anfordern",
+    "product": "Produkt",
+    "products": "Produkte"
   },
   "productDetail": {
     "keyFeatures": "HAUPTMERKMALE",

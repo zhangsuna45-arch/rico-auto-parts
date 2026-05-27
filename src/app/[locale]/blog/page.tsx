@@ -1,4 +1,4 @@
-import { getBlogPosts } from '@/sanity/lib/data';
+import { getBlogPosts } from '@/lib/data';
 import { BlogCard } from '@/components/BlogCard';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';

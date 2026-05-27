@@ -2,7 +2,7 @@ import { HeroSection } from '@/components/HeroSection';
 import { CategoryCard } from '@/components/CategoryCard';
 import { BlogCard } from '@/components/BlogCard';
 import { categories } from '@/data/categories';
-import { getBlogPosts } from '@/sanity/lib/data';
+import { getBlogPosts } from '@/lib/data';
 import { OrganizationSchema, BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';

@@ -1,5 +1,6 @@
-import { getProducts, getBlogPosts } from '@/sanity/lib/data';
+import { getProducts, getBlogPosts } from '@/lib/data';
 import { categories } from '@/data/categories';
+import { seriesList } from '@/data/series';
 import { locales } from '@/i18n/routing';
 import type { MetadataRoute } from 'next';
 
@@ -51,8 +52,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
+  const seriesRoutes = seriesList.flatMap((s) =>
+    forAllLocales(`/products/${s.categorySlug}/${s.slug}`, {
+      lastModified: today,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }),
+  );
+
   const productRoutes = products.flatMap((p) =>
-    forAllLocales(`/products/${p.categorySlug}/${p.slug}`, {
+    forAllLocales(`/products/${p.categorySlug}/${p.seriesSlug}/${p.slug}`, {
       lastModified: today,
       changeFrequency: 'weekly' as const,
       priority: 0.75,
@@ -67,5 +76,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  return [...staticRoutes, ...categoryRoutes, ...productRoutes, ...blogRoutes];
+  return [...staticRoutes, ...categoryRoutes, ...seriesRoutes, ...productRoutes, ...blogRoutes];
 }

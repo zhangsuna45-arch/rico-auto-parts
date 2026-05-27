@@ -45,7 +45,9 @@
     "browseAll": "← Voir tous les produits",
     "needCustom": "Besoin d'une Solution Personnalisée?",
     "customDescription": "Contactez-nous pour des exigences OEM personnalisées et des prix de gros",
-    "requestQuote": "Demander un Devis"
+    "requestQuote": "Demander un Devis",
+    "product": "produit",
+    "products": "produits"
   },
   "productDetail": {
     "keyFeatures": "CARACTÉRISTIQUES PRINCIPALES",

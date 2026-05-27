@@ -12,7 +12,7 @@ interface ProductCardProps {
 export const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   return (
     <Link
-      href={`/products/${product.categorySlug}/${product.slug}`}
+      href={`/products/${product.categorySlug}/${product.seriesSlug}/${product.slug}`}
       style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', height: '100%' }}
     >
       <div
