@@ -101,6 +101,25 @@ export function renderMarkdown(content: string): React.ReactNode {
       continue;
     }
 
+    // Markdown image: ![alt](url)
+    const imageMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+    if (imageMatch) {
+      elements.push(
+        <img
+          key={i}
+          src={imageMatch[2]}
+          alt={imageMatch[1]}
+          style={{
+            width: '100%',
+            borderRadius: '12px',
+            marginBottom: '24px',
+          }}
+        />,
+      );
+      i++;
+      continue;
+    }
+
     // Image suggestion
     if (line.startsWith('[📸')) {
       const inner = line.replace(/^\[📸\s*|\]$/g, '');
@@ -237,6 +256,7 @@ export function renderMarkdown(content: string): React.ReactNode {
       !lines[i].startsWith('|') &&
       !lines[i].startsWith('- ') &&
       !lines[i].startsWith('[📸') &&
+      !lines[i].startsWith('![') &&
       !lines[i].startsWith('> ')
     ) {
       paragraphLines.push(lines[i]);
