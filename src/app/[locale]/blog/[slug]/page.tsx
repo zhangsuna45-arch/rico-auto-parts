@@ -105,8 +105,6 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
         <Link href="/blog" style={{ color: '#2563eb', textDecoration: 'none' }}>
           Blog
         </Link>
-        <span> / </span>
-        <span>{post.title}</span>
       </div>
 
       {/* Article Header */}
