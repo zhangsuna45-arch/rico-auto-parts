@@ -1,6 +1,4 @@
-import { getProducts, getBlogPosts } from '@/lib/data';
-import { categories } from '@/data/categories';
-import { seriesList } from '@/data/series';
+import { getProducts, getBlogPosts, getCategories, getSeries } from '@/lib/data';
 import { locales } from '@/i18n/routing';
 import type { MetadataRoute } from 'next';
 
@@ -39,12 +37,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  const [products, blogPosts] = await Promise.all([
+  const [products, blogPosts, allCategories, allSeries] = await Promise.all([
     getProducts(),
     getBlogPosts(),
+    getCategories(),
+    getSeries(),
   ]);
 
-  const categoryRoutes = categories.flatMap((c) =>
+  const categoryRoutes = allCategories.flatMap((c) =>
     forAllLocales(`/products/${c.slug}`, {
       lastModified: today,
       changeFrequency: 'weekly' as const,
@@ -52,7 +52,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
-  const seriesRoutes = seriesList.flatMap((s) =>
+  const seriesRoutes = allSeries.flatMap((s) =>
     forAllLocales(`/products/${s.categorySlug}/${s.slug}`, {
       lastModified: today,
       changeFrequency: 'weekly' as const,

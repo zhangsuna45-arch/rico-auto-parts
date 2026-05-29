@@ -43,14 +43,6 @@ export function ProductSchema({ product }: { product: Product }) {
       '@type': 'Brand',
       name: 'Rico Car Accessories',
     },
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock',
-      itemCondition: 'https://schema.org/NewCondition',
-      businessFunction: 'https://purl.org/goodrelations/v1#ProvideService',
-    },
     category: product.category,
     material: product.enterprise.material,
     manufacturer: {

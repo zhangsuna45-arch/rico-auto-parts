@@ -93,21 +93,24 @@ export function ProductInquiryForm({
   const inputS: React.CSSProperties = {
     width: '100%',
     padding: '14px 18px',
-    border: '2px solid #e2e8f0',
-    borderRadius: '12px',
-    fontSize: '15px',
+    border: '1px solid #e2e8f0',
+    borderRadius: '10px',
+    fontSize: '14px',
     outline: 'none',
     boxSizing: 'border-box',
     fontFamily: 'inherit',
-    transition: 'border-color 0.2s',
-    background: '#fff',
+    transition: 'border-color 0.2s, background 0.2s',
+    background: '#f8fafc',
+    color: '#0f172a',
   };
 
   const focusStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     e.target.style.borderColor = '#2563eb';
+    e.target.style.background = '#fff';
   };
   const blurStyle = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     e.target.style.borderColor = '#e2e8f0';
+    e.target.style.background = '#f8fafc';
   };
 
   if (successId) {

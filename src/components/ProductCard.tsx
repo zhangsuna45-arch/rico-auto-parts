@@ -18,15 +18,14 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
       <div
         style={{
           background: '#fff',
-          borderRadius: '32px',
+          borderRadius: '16px',
           overflow: 'hidden',
-          border: '1px solid rgba(15,23,42,0.06)',
-          boxShadow: '0 10px 30px rgba(15,23,42,0.04)',
+          border: '1px solid #e2e8f0',
           cursor: 'pointer',
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          transition: 'transform 0.3s ease',
+          transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
         }}
       >
         <ProductShowcase
@@ -40,7 +39,7 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
 
         <div
           style={{
-            padding: '34px',
+            padding: '20px',
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
@@ -48,10 +47,10 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
         >
           <h3
             style={{
-              fontSize: '34px',
+              fontSize: '18px',
               lineHeight: 1.2,
-              fontWeight: 900,
-              margin: '0 0 16px 0',
+              fontWeight: 600,
+              margin: '0 0 8px 0',
               color: '#0f172a',
             }}
           >
@@ -59,9 +58,9 @@ export const ProductCard = memo(function ProductCard({ product }: ProductCardPro
           </h3>
           <p
             style={{
-              fontSize: '16px',
+              fontSize: '13px',
               color: '#64748b',
-              lineHeight: 1.6,
+              lineHeight: 1.5,
               marginTop: 'auto',
             }}
           >

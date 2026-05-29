@@ -1,13 +1,11 @@
 import { HeroSection } from '@/components/HeroSection';
 import { CategoryCard } from '@/components/CategoryCard';
 import { BlogCard } from '@/components/BlogCard';
-import { categories } from '@/data/categories';
-import { getBlogPosts } from '@/lib/data';
+import { getCategories, getBlogPosts } from '@/lib/data';
 import { OrganizationSchema, BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
-import Image from 'next/image';
 import type { Metadata } from 'next';
 
 interface HomeProps {
@@ -55,6 +53,7 @@ export async function generateMetadata({ params }: HomeProps): Promise<Metadata>
 export default async function Home({ params }: HomeProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'home' });
+  const categoryItems = await getCategories();
   const blogPostsData = await getBlogPosts();
   const blogPreview = blogPostsData.slice(0, 3);
 
@@ -116,7 +115,7 @@ export default async function Home({ params }: HomeProps) {
             margin: '0 auto',
           }}
         >
-          {categories.map((item) => (
+          {categoryItems.map((item) => (
             <CategoryCard key={item.slug} name={item.name} slug={item.slug} image={item.image} description={item.description} />
           ))}
         </div>
@@ -190,93 +189,37 @@ export default async function Home({ params }: HomeProps) {
       </section>
 
       {/* 4. ABOUT RICO */}
-      <section
-        style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: '72px 24px',
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '60px',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            height: 600,
-            borderRadius: '40px',
-            overflow: 'hidden',
-          }}
-        >
-          <Image
-            src="/placeholder-1.svg"
-            alt="Rico Car Accessories"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
+      <section className="max-w-[1280px] mx-auto px-6 py-16 md:py-24">
+        <div className="max-w-[600px]">
+          <div>
+            <p className="text-[11px] font-bold text-[#2563eb] tracking-[3px] uppercase mb-4">
+              {t('aboutSectionLabel')}
+            </p>
 
-        <div>
-          <p
-            style={{
-              color: '#2563eb',
-              fontWeight: 700,
-              letterSpacing: '3.9px',
-              fontSize: '13px',
-              textTransform: 'uppercase',
-              marginBottom: '16px',
-              margin: '0 0 16px 0',
-            }}
-          >
-            {t('aboutSectionLabel')}
-          </p>
+            <h2 className="text-[clamp(34px,5vw,54px)] leading-[1.05] font-extrabold tracking-[-0.02em] text-[#0f172a] mb-3">
+              Professional Automotive
+              <br />
+              Accessories Supplier
+            </h2>
 
-          <h2
-            style={{
-              fontSize: 'clamp(48px, 7vw, 72px)',
-              letterSpacing: '-0.02em',
-              lineHeight: 1,
-              fontWeight: 900,
-              marginBottom: '30px',
-              margin: '0 0 30px 0',
-            }}
-          >
-            {t('aboutTitle1')}
-            <br />
-            {t('aboutTitle2')}
-          </h2>
+            <p className="text-sm text-[#94a3b8] tracking-wide mb-6">
+              专业汽车配件供应商 · 服务全球 30+ 国家
+            </p>
 
-          <p
-            style={{
-              color: '#64748b',
-              fontSize: '18px',
-              lineHeight: 1.9,
-              marginBottom: '30px',
-              margin: '0 0 30px 0',
-            }}
-          >
-            {t('aboutDescription')}
-          </p>
+            <p className="text-[15px] leading-[1.8] text-[#475569] mb-8 max-w-[520px]">
+              {t('aboutDescription')}
+            </p>
 
-          <Link href="/about">
-            <button
-              style={{
-                background: '#2563eb',
-                color: '#fff',
-                border: 'none',
-                padding: '20px 36px',
-                borderRadius: '18px',
-                fontWeight: 800,
-                fontSize: '16px',
-                cursor: 'pointer',
-              }}
+            <Link
+              href="/about"
+              className="inline-flex items-center gap-2 px-7 py-3 border border-[#d1d5db] rounded-xl text-sm font-semibold text-[#0f172a] no-underline hover:border-[#0f172a] hover:bg-[#f8fafc] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
             >
               {t('learnMore')}
-            </button>
-          </Link>
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
     </main>

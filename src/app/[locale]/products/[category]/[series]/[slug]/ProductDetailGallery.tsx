@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import type { ProductVariant } from '@/data/products';
@@ -22,10 +22,8 @@ export function ProductDetailGallery({
   const [zoom, setZoom] = useState(false);
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const imageRef = useRef<HTMLDivElement>(null);
-  const thumbRowRef = useRef<HTMLDivElement>(null);
   const t = useTranslations('productDetail');
 
-  // Determine which images to show
   const hasVariants = variants && variants.length > 0;
   const activeVariant =
     hasVariants && activeVariantIndex !== undefined
@@ -38,21 +36,10 @@ export function ProductDetailGallery({
         ? gallery
         : [FALLBACK];
 
-  // Reset selected when variant changes
   useEffect(() => {
     setSelected(0);
     setZoom(false);
   }, [activeVariantIndex]);
-
-  // Scroll active thumbnail into view
-  useEffect(() => {
-    if (thumbRowRef.current) {
-      const thumb = thumbRowRef.current.children[selected] as HTMLElement | undefined;
-      if (thumb) {
-        thumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-      }
-    }
-  }, [selected]);
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -65,9 +52,23 @@ export function ProductDetailGallery({
     [zoom],
   );
 
+  useEffect(() => {
+    images.forEach((src, i) => {
+      if (i === selected || i === selected + 1 || i === selected - 1) {
+        const img = new window.Image();
+        img.src = src;
+      }
+    });
+  }, [selected, images]);
+
+  const handleThumbClick = useCallback((i: number) => {
+    setSelected(i);
+    setZoom(false);
+  }, []);
+
   return (
     <div>
-      {/* Main image — blue-tech showcase with zoom */}
+      {/* Main image container */}
       <div
         ref={imageRef}
         onMouseEnter={() => setZoom(true)}
@@ -78,71 +79,19 @@ export function ProductDetailGallery({
         onMouseMove={handleMouseMove}
         style={{
           position: 'relative',
-          background:
-            'linear-gradient(160deg, #f0f4ff 0%, #e8f0fe 25%, #f5f7fa 50%, #eef3ff 100%)',
-          borderRadius: '24px',
-          height: '520px',
+          background: '#f8fafc',
+          borderRadius: '16px',
+          aspectRatio: '4/3',
           overflow: 'hidden',
           cursor: zoom ? 'zoom-out' : 'zoom-in',
-          boxShadow:
-            '0 20px 60px rgba(15,23,42,0.08), 0 4px 12px rgba(15,23,42,0.03), inset 0 0 0 1px rgba(255,255,255,0.5)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.04)',
+          border: '1px solid rgba(0,0,0,0.04)',
         }}
       >
-        {/* Dot grid pattern */}
         <div
           style={{
             position: 'absolute',
-            inset: 0,
-            backgroundImage:
-              'radial-gradient(circle, rgba(37,99,235,0.06) 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-            pointerEvents: 'none',
-          }}
-        />
-
-        {/* Blue glow behind product */}
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '70%',
-            height: '55%',
-            borderRadius: '50%',
-            background:
-              'radial-gradient(ellipse, rgba(37,99,235,0.14) 0%, rgba(37,99,235,0.04) 45%, transparent 70%)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        {/* Corner accents */}
-        {['topLeft', 'topRight', 'bottomLeft', 'bottomRight'].map((pos) => {
-          const isTop = pos.includes('top');
-          const isLeft = pos.includes('Left');
-          return (
-            <div
-              key={pos}
-              style={{
-                position: 'absolute',
-                [isTop ? 'top' : 'bottom']: '6%',
-                [isLeft ? 'left' : 'right']: '6%',
-                width: '28px',
-                height: '28px',
-                borderTop: isTop ? '2px solid rgba(37,99,235,0.15)' : 'none',
-                borderBottom: !isTop ? '2px solid rgba(37,99,235,0.15)' : 'none',
-                borderLeft: isLeft ? '2px solid rgba(37,99,235,0.15)' : 'none',
-                borderRight: !isLeft ? '2px solid rgba(37,99,235,0.15)' : 'none',
-                pointerEvents: 'none',
-              }}
-            />
-          );
-        })}
-
-        <div
-          style={{
-            position: 'absolute',
-            inset: '8% 6%',
+            inset: '4%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -158,9 +107,7 @@ export function ProductDetailGallery({
               objectFit: 'contain',
               objectPosition: zoom ? `${zoomPos.x}% ${zoomPos.y}%` : 'center',
               transform: zoom ? 'scale(1.8)' : 'scale(1)',
-              transition: zoom ? 'none' : 'transform 0.4s ease',
-              filter:
-                'drop-shadow(0 16px 32px rgba(15,23,42,0.18)) drop-shadow(0 4px 8px rgba(37,99,235,0.08))',
+              transition: zoom ? 'none' : 'transform 0.15s ease',
             }}
             onError={(e) => {
               (e.target as HTMLImageElement).src = FALLBACK;
@@ -168,101 +115,76 @@ export function ProductDetailGallery({
           />
         </div>
 
-        {/* Bottom reflection line */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '8%',
-            left: '15%',
-            right: '15%',
-            height: '2px',
-            background:
-              'linear-gradient(90deg, transparent, rgba(37,99,235,0.2), rgba(37,99,235,0.35), rgba(37,99,235,0.2), transparent)',
-            pointerEvents: 'none',
-          }}
-        />
-
-        {!zoom && (
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '16px',
-              right: '16px',
-              background: 'rgba(15,23,42,0.7)',
-              color: '#fff',
-              padding: '6px 12px',
-              borderRadius: '8px',
-              fontSize: '12px',
-              fontWeight: 600,
-              backdropFilter: 'blur(4px)',
-            }}
-          >
-            {t('hoverToZoom')}
-          </div>
-        )}
-
         {/* Image counter */}
         {images.length > 1 && (
           <div
             style={{
               position: 'absolute',
-              bottom: '16px',
-              left: '16px',
-              background: 'rgba(15,23,42,0.6)',
-              color: '#fff',
-              padding: '4px 10px',
-              borderRadius: '6px',
-              fontSize: '12px',
+              top: '10px',
+              left: '10px',
+              background: 'rgba(255,255,255,0.9)',
+              backdropFilter: 'blur(8px)',
+              color: '#64748b',
+              padding: '3px 8px',
+              borderRadius: '100px',
+              fontSize: '11px',
               fontWeight: 600,
-              backdropFilter: 'blur(4px)',
+              border: '1px solid rgba(0,0,0,0.06)',
             }}
           >
             {selected + 1} / {images.length}
           </div>
         )}
+
+        {!zoom && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              background: 'rgba(255,255,255,0.9)',
+              backdropFilter: 'blur(8px)',
+              color: '#94a3b8',
+              padding: '3px 8px',
+              borderRadius: '100px',
+              fontSize: '10px',
+              fontWeight: 500,
+              border: '1px solid rgba(0,0,0,0.06)',
+            }}
+          >
+            {t('hoverToZoom')}
+          </div>
+        )}
       </div>
 
-      {/* Thumbnails — horizontal scrollable row */}
+      {/* Thumbnails */}
       {images.length > 1 && (
         <div
-          ref={thumbRowRef}
           style={{
-            display: 'flex',
-            gap: '10px',
-            marginTop: '16px',
-            overflowX: 'auto',
-            paddingBottom: '4px',
-            scrollbarWidth: 'thin',
-            scrollbarColor: 'rgba(15,23,42,0.12) transparent',
+            display: 'grid',
+            gridTemplateColumns: `repeat(${Math.min(images.length, 6)}, 1fr)`,
+            gap: '6px',
+            marginTop: '8px',
           }}
         >
           {images.map((src, i) => (
             <button
               key={`${src}-${i}`}
-              onClick={() => {
-                setSelected(i);
-                setZoom(false);
-              }}
+              onClick={() => handleThumbClick(i)}
               style={{
-                flexShrink: 0,
-                width: '80px',
-                height: '80px',
-                borderRadius: '10px',
+                aspectRatio: '1/1',
+                borderRadius: '6px',
                 overflow: 'hidden',
                 border:
                   selected === i
                     ? '2px solid #2563eb'
-                    : '2px solid rgba(15,23,42,0.08)',
+                    : '2px solid transparent',
                 cursor: 'pointer',
                 padding: 0,
                 background: '#f1f5f9',
-                transition: 'border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
-                transform: selected === i ? 'scale(1.05)' : 'scale(1)',
-                boxShadow:
-                  selected === i
-                    ? '0 4px 12px rgba(37,99,235,0.2)'
-                    : '0 1px 3px rgba(15,23,42,0.06)',
                 outline: 'none',
+                opacity: selected === i ? 1 : 0.7,
+                transition: 'opacity 0.15s ease, border-color 0.15s ease',
               }}
             >
               <Image
@@ -275,15 +197,6 @@ export function ProductDetailGallery({
                   (e.target as HTMLImageElement).src = FALLBACK;
                 }}
               />
-              {selected === i && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'rgba(37,99,235,0.08)',
-                  }}
-                />
-              )}
             </button>
           ))}
         </div>

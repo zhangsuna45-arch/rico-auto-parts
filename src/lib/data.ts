@@ -51,6 +51,9 @@ function mapCategory(r: AirtableCategory): Category {
 
 function mapProduct(r: AirtableProduct): Product {
   const enterprise = parseJson<Record<string, string>>(r.Enterprise, {});
+  const mainImage = extractAttachmentUrl(r.Image);
+  const galleryImages = extractAttachments(r.Gallery);
+  const effectiveMain = mainImage || (galleryImages.length > 0 ? galleryImages[0] : '');
 
   return {
     id: String(r.id ?? ''),
@@ -62,11 +65,11 @@ function mapProduct(r: AirtableProduct): Product {
     seriesSlug: String(r.SeriesSlug ?? ''),
     description: String(r.Description ?? ''),
     longDescription: String(r.LongDescription ?? ''),
-    price: String(r.Price || 'Upon Request'),
+    price: '',
     specs: parseJson<Record<string, string>>(r.Specs, {}),
     features: parseJson<string[]>(r.Features, []),
-    image: extractAttachmentUrl(r.Image),
-    gallery: extractAttachments(r.Gallery),
+    image: effectiveMain,
+    gallery: galleryImages.length > 0 ? galleryImages : effectiveMain ? [effectiveMain] : [],
     isFeatured: Boolean(r.IsFeatured),
     enterprise: {
       oem: enterprise.oem ?? '',
@@ -118,6 +121,24 @@ export async function getCategories(): Promise<Category[]> {
     return records.length > 0 ? records.map(mapCategory) : mockCategories;
   } catch {
     return mockCategories;
+  }
+}
+
+export async function getSeriesByCategorySlug(
+  categorySlug: string,
+): Promise<ProductSeries[]> {
+  if (useMock()) return seriesList.filter((s) => s.categorySlug === categorySlug);
+  try {
+    const records = await fetchTable<AirtableSeries>('Series', {
+      filterByFormula: `{CategorySlug}="${categorySlug}"`,
+      sort: [{ field: 'Order', direction: 'asc' }],
+    });
+    const mapped = records.map(mapSeries);
+    return mapped.length > 0
+      ? mapped
+      : seriesList.filter((s) => s.categorySlug === categorySlug);
+  } catch {
+    return seriesList.filter((s) => s.categorySlug === categorySlug);
   }
 }
 

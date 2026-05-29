@@ -39,10 +39,10 @@ export function StickyInquiry({
           maxHeight: 'calc(100vh - 180px)',
           overflowY: 'auto',
           background: '#fff',
-          borderRadius: '24px',
+          borderRadius: '20px',
           padding: '32px',
-          boxShadow: '0 20px 60px rgba(15,23,42,0.15)',
-          border: '1px solid rgba(15,23,42,0.06)',
+          boxShadow: '0 25px 80px rgba(0,0,0,0.12)',
+          border: '1px solid #e2e8f0',
           zIndex: 50,
           transition: 'right 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
           display: 'none',
@@ -52,7 +52,7 @@ export function StickyInquiry({
         <h4
           style={{
             fontSize: '16px',
-            fontWeight: 800,
+            fontWeight: 600,
             color: '#0f172a',
             letterSpacing: '1px',
             marginBottom: '8px',

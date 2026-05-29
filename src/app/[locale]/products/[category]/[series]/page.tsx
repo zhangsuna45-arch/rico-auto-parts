@@ -1,6 +1,4 @@
-import { getProductsByCategory } from '@/lib/data';
-import { seriesList, getSeriesBySlug } from '@/data/series';
-import { categories as allCategories } from '@/data/categories';
+import { getProductsByCategory, getCategories, getSeries } from '@/lib/data';
 import { ProductCard } from '@/components/ProductCard';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';
@@ -13,10 +11,11 @@ interface SeriesPageProps {
   params: Promise<{ category: string; series: string; locale: string }>;
 }
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const allSeries = await getSeries();
   const params: { category: string; series: string; locale: string }[] = [];
   for (const locale of routing.locales) {
-    for (const s of seriesList) {
+    for (const s of allSeries) {
       params.push({ locale, category: s.categorySlug, series: s.slug });
     }
   }
@@ -27,7 +26,9 @@ export async function generateMetadata({
   params,
 }: SeriesPageProps): Promise<Metadata> {
   const { category, series, locale } = await params;
-  const seriesData = getSeriesBySlug(category, series);
+  const allCategories = await getCategories();
+  const allSeries = await getSeries();
+  const seriesData = allSeries.find((s) => s.categorySlug === category && s.slug === series);
 
   if (!seriesData) {
     return { title: 'Series Not Found' };
@@ -55,8 +56,10 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
   const { category, series, locale } = await params;
   const t = await getTranslations({ locale, namespace: 'products' });
 
+  const allCategories = await getCategories();
+  const allSeries = await getSeries();
   const categoryData = allCategories.find((c) => c.slug === category);
-  const seriesData = getSeriesBySlug(category, series);
+  const seriesData = allSeries.find((s) => s.categorySlug === category && s.slug === series);
 
   if (!categoryData || !seriesData) {
     notFound();

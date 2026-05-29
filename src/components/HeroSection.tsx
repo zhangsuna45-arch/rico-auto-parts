@@ -4,6 +4,7 @@ import { memo } from 'react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { CatalogueButton } from './CatalogueModal';
 
 export const HeroSection = memo(function HeroSection() {
   const t = useTranslations('home');
@@ -103,6 +104,8 @@ export const HeroSection = memo(function HeroSection() {
               {t('contactUs')}
             </button>
           </Link>
+
+          <CatalogueButton />
         </div>
       </div>
 
@@ -118,12 +121,12 @@ export const HeroSection = memo(function HeroSection() {
         }}
       >
         <Image
-          src="/placeholder-3.svg"
-          alt="Premium automotive components"
+          src="/hero-bg.jpg"
+          alt="Rico Car Accessories - Premium automotive components"
           fill
           sizes="(max-width: 768px) 100vw, 52vw"
           priority
-          style={{ objectFit: 'cover' }}
+          style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
         />
       </div>
     </section>

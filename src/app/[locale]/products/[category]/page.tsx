@@ -1,6 +1,4 @@
-import { getProductsByCategory } from '@/lib/data';
-import { categories as allCategories } from '@/data/categories';
-import { seriesList, getSeriesByCategory } from '@/data/series';
+import { getProductsByCategory, getCategories, getSeriesByCategorySlug } from '@/lib/data';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';
 import { notFound } from 'next/navigation';
@@ -15,7 +13,13 @@ interface CategoryPageProps {
 export function generateStaticParams() {
   const params: { category: string; locale: string }[] = [];
   for (const locale of routing.locales) {
-    for (const c of allCategories) {
+    for (const c of [
+      { slug: 'interior-accessories' },
+      { slug: 'electronics-charging' },
+      { slug: 'car-lighting' },
+      { slug: 'exterior-accessories' },
+      { slug: 'functional-accessories' },
+    ]) {
       params.push({ locale, category: c.slug });
     }
   }
@@ -26,6 +30,7 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { category, locale } = await params;
+  const allCategories = await getCategories();
   const categoryData = allCategories.find((c) => c.slug === category);
 
   if (!categoryData) {
@@ -52,12 +57,13 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const { category, locale } = await params;
   const t = await getTranslations({ locale, namespace: 'products' });
 
+  const allCategories = await getCategories();
   const categoryData = allCategories.find((c) => c.slug === category);
   if (!categoryData) {
     notFound();
   }
 
-  const categorySeries = getSeriesByCategory(category);
+  const categorySeries = await getSeriesByCategorySlug(category);
   const categoryProducts = await getProductsByCategory(category);
 
   // Count products per series
@@ -173,10 +179,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                       height: '100%',
                     }}
                   >
-                    {/* Series image placeholder */}
+                    {/* Series image */}
                     <div
                       style={{
-                        background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f7fa 100%)',
+                        background: s.image ? '#f8fafc' : 'linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f7fa 100%)',
                         height: '220px',
                         display: 'flex',
                         alignItems: 'center',
@@ -185,29 +191,43 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                         overflow: 'hidden',
                       }}
                     >
-                      {/* Dot grid pattern */}
-                      <div
-                        style={{
-                          position: 'absolute',
-                          inset: 0,
-                          backgroundImage:
-                            'radial-gradient(circle, rgba(37,99,235,0.08) 1px, transparent 1px)',
-                          backgroundSize: '20px 20px',
-                        }}
-                      />
-                      {/* Series name monogram */}
-                      <div
-                        style={{
-                          fontSize: '72px',
-                          fontWeight: 900,
-                          color: 'rgba(37,99,235,0.12)',
-                          letterSpacing: '-4px',
-                          position: 'relative',
-                          zIndex: 1,
-                        }}
-                      >
-                        {s.name.charAt(0)}
-                      </div>
+                      {s.image ? (
+                        <img
+                          src={s.image}
+                          alt={s.name}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                          }}
+                        />
+                      ) : (
+                        <>
+                          {/* Dot grid pattern */}
+                          <div
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              backgroundImage:
+                                'radial-gradient(circle, rgba(37,99,235,0.08) 1px, transparent 1px)',
+                              backgroundSize: '20px 20px',
+                            }}
+                          />
+                          {/* Series name monogram */}
+                          <div
+                            style={{
+                              fontSize: '72px',
+                              fontWeight: 900,
+                              color: 'rgba(37,99,235,0.12)',
+                              letterSpacing: '-4px',
+                              position: 'relative',
+                              zIndex: 1,
+                            }}
+                          >
+                            {s.name.charAt(0)}
+                          </div>
+                        </>
+                      )}
                     </div>
 
                     <div style={{ padding: '32px' }}>

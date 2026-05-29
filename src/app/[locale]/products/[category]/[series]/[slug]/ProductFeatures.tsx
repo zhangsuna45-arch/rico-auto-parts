@@ -1,91 +1,40 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-
-const FEATURE_ICONS = [
-  { icon: '◈', color: '#2563eb' },
-  { icon: '◆', color: '#3b82f6' },
-  { icon: '◇', color: '#60a5fa' },
-  { icon: '▣', color: '#2563eb' },
-  { icon: '▷', color: '#3b82f6' },
-  { icon: '○', color: '#60a5fa' },
-  { icon: '□', color: '#2563eb' },
-  { icon: '△', color: '#3b82f6' },
-];
-
 export function ProductFeatures({ features }: { features: string[] }) {
-  const t = useTranslations('productDetail');
+  const items = features.slice(0, 4);
 
   return (
-    <div>
-      <h3
-        style={{
-          fontSize: '13px',
-          fontWeight: 800,
-          letterSpacing: '3px',
-          color: '#2563eb',
-          marginBottom: '24px',
-          margin: '0 0 24px 0',
-        }}
-      >
-        {t('keyFeatures')}
-      </h3>
-
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
-          gap: '12px',
-        }}
-      >
-        {features.map((feature, i) => {
-          const iconData = FEATURE_ICONS[i % FEATURE_ICONS.length];
-          return (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: '16px',
-                padding: '20px 24px',
-                background: '#f8fafc',
-                borderRadius: '16px',
-                border: '1px solid rgba(15,23,42,0.04)',
-              }}
-            >
-              <div
-                style={{
-                  flexShrink: 0,
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
-                  background: '#eff6ff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '18px',
-                  color: iconData.color,
-                }}
-              >
-                {iconData.icon}
-              </div>
-              <div>
-                <p
-                  style={{
-                    fontSize: '15px',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                    lineHeight: 1.6,
-                    margin: 0,
-                  }}
-                >
-                  {feature}
-                </p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      {items.map((feature, i) => (
+        <div
+          key={i}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '14px',
+          }}
+        >
+          <div
+            style={{
+              flexShrink: 0,
+              width: '6px',
+              height: '6px',
+              borderRadius: '50%',
+              background: i === 0 ? '#2563eb' : '#cbd5e1',
+            }}
+          />
+          <span
+            style={{
+              fontSize: '15px',
+              fontWeight: 500,
+              color: '#475569',
+              lineHeight: 1.6,
+            }}
+          >
+            {feature}
+          </span>
+        </div>
+      ))}
     </div>
   );
 }

@@ -6,8 +6,8 @@ export function RelatedProducts({ products }: { products: Product[] }) {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill,minmax(360px,1fr))',
-        gap: '30px',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+        gap: '20px',
       }}
     >
       {products.map((product) => (
