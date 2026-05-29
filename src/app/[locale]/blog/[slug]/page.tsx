@@ -93,7 +93,7 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
         style={{
           background: '#fff',
           borderBottom: '1px solid rgba(15,23,42,0.06)',
-          padding: '16px 60px',
+          padding: '12px 40px',
           fontSize: '14px',
           color: '#64748b',
         }}
@@ -114,7 +114,7 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
         style={{
           background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
           color: '#fff',
-          padding: '80px 60px',
+          padding: '48px 40px',
           textAlign: 'center',
         }}
       >
@@ -124,8 +124,8 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
             justifyContent: 'center',
             gap: '20px',
             marginBottom: '20px',
-            fontSize: '14px',
-            opacity: 0.9,
+            fontSize: '13px',
+            opacity: 0.85,
           }}
         >
           <span>{post.category}</span>
@@ -142,19 +142,18 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
         </div>
         <h1
           style={{
-            fontSize: '56px',
+            fontSize: '36px',
             fontWeight: 900,
-            lineHeight: 1.15,
-            marginBottom: '20px',
-            margin: '0 0 20px 0',
-            maxWidth: '900px',
+            lineHeight: 1.25,
+            margin: '0 0 12px 0',
+            maxWidth: '800px',
             marginLeft: 'auto',
             marginRight: 'auto',
           }}
         >
           {post.title}
         </h1>
-        <p style={{ fontSize: '18px', opacity: 0.9, margin: 0 }}>
+        <p style={{ fontSize: '15px', opacity: 0.85, margin: 0 }}>
           By {post.author}
         </p>
       </div>
