@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { Link } from '@/i18n/navigation';
 import { BlogPostingSchema, BreadcrumbSchema } from '@/components/StructuredData';
 import { routing } from '@/i18n/routing';
+import { renderMarkdown } from '@/lib/markdown';
 import type { Metadata } from 'next';
 
 interface BlogDetailProps {
@@ -175,16 +176,15 @@ export default async function BlogDetail({ params }: BlogDetailProps) {
             boxShadow: '0 10px 40px rgba(15,23,42,0.06)',
           }}
         >
-          <p
+          <div
             style={{
-              fontSize: '18px',
+              fontSize: '16px',
               color: '#334155',
-              lineHeight: 2,
-              margin: 0,
+              lineHeight: 1.8,
             }}
           >
-            {post.content}
-          </p>
+            {renderMarkdown(post.content)}
+          </div>
         </div>
 
         <div style={{ marginTop: '40px', textAlign: 'center' }}>
