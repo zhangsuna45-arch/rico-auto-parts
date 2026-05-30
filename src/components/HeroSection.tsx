@@ -16,7 +16,8 @@ export const HeroSection = memo(function HeroSection() {
         width: '100%',
         minHeight: 'clamp(520px, 48vw, 680px)',
         background: 'linear-gradient(150deg, #111827 0%, #1a1f2e 50%, #1e2433 100%)',
-        overflow: 'hidden',
+        maxWidth: '100vw',
+        overflowX: 'hidden',
         display: 'flex',
         alignItems: 'center',
       }}
@@ -28,14 +29,14 @@ export const HeroSection = memo(function HeroSection() {
           right: 0,
           top: 0,
           bottom: 0,
-          width: 'clamp(600px, 60vw, 900px)',
+          width: 'clamp(360px, 48vw, 680px)',
         }}
       >
         <Image
           src="/images/hero-banner.webp"
           alt=""
           fill
-          sizes="60vw"
+          sizes="48vw"
           priority
           style={{ objectFit: 'cover', objectPosition: 'center left' }}
         />
@@ -46,7 +47,7 @@ export const HeroSection = memo(function HeroSection() {
             left: 0,
             top: 0,
             bottom: 0,
-            width: '230px',
+            width: '180px',
             background: 'linear-gradient(to right, #1a1f2e 0%, transparent 100%)',
           }}
         />
@@ -63,7 +64,7 @@ export const HeroSection = memo(function HeroSection() {
           padding: '60px 24px',
         }}
       >
-        <div style={{ maxWidth: '540px' }}>
+        <div style={{ maxWidth: '500px' }}>
           <p
             style={{
               color: '#3b82f6',
