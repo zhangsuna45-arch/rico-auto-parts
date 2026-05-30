@@ -116,7 +116,7 @@ export const HeroSection = memo(function HeroSection() {
         }}
       >
         <Image
-          src="/images/hero-automotive-accessories.webp"
+          src="/images/首页.png"
           alt="Rico Car Accessories - Automotive accessories supplier from China"
           fill
           sizes="55vw"
