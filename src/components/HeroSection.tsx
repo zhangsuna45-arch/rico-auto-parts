@@ -28,14 +28,14 @@ export const HeroSection = memo(function HeroSection() {
           right: 0,
           top: 0,
           bottom: 0,
-          width: 'clamp(520px, 52vw, 780px)',
+          width: 'clamp(600px, 60vw, 900px)',
         }}
       >
         <Image
-          src="/images/hero-homepage.png"
+          src="/images/hero-banner.webp"
           alt=""
           fill
-          sizes="52vw"
+          sizes="60vw"
           priority
           style={{ objectFit: 'cover', objectPosition: 'center left' }}
         />
@@ -46,7 +46,7 @@ export const HeroSection = memo(function HeroSection() {
             left: 0,
             top: 0,
             bottom: 0,
-            width: '200px',
+            width: '230px',
             background: 'linear-gradient(to right, #1a1f2e 0%, transparent 100%)',
           }}
         />
