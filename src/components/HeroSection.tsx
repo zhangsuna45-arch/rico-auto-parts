@@ -14,10 +14,10 @@ export const HeroSection = memo(function HeroSection() {
       style={{
         maxWidth: '1280px',
         margin: '0 auto',
-        padding: '40px 24px 120px',
+        padding: '32px 24px 80px',
         display: 'grid',
-        gridTemplateColumns: '40fr 60fr',
-        gap: '60px',
+        gridTemplateColumns: '45fr 55fr',
+        gap: '48px',
         alignItems: 'center',
       }}
     >
@@ -27,8 +27,8 @@ export const HeroSection = memo(function HeroSection() {
             color: '#2563eb',
             fontWeight: 700,
             letterSpacing: '4px',
-            marginBottom: '24px',
-            margin: '0 0 24px 0',
+            fontSize: '13px',
+            margin: '0 0 20px 0',
           }}
         >
           {t('heroSubtitle')}
@@ -36,13 +36,12 @@ export const HeroSection = memo(function HeroSection() {
 
         <h1
           style={{
-            fontSize: 'clamp(58px, 6.5vw, 95px)',
-            lineHeight: 1.0,
+            fontSize: 'clamp(42px, 4.5vw, 64px)',
+            lineHeight: 1.08,
             fontWeight: 800,
             letterSpacing: '-0.02em',
-            marginBottom: '28px',
-            margin: '0 0 28px 0',
-            maxWidth: '600px',
+            margin: '0 0 20px 0',
+            maxWidth: '520px',
           }}
         >
           {t('heroTitle1')}
@@ -55,11 +54,10 @@ export const HeroSection = memo(function HeroSection() {
         <p
           style={{
             color: '#64748b',
-            fontSize: '20px',
-            lineHeight: 1.8,
-            marginBottom: '36px',
-            maxWidth: '520px',
-            margin: '0 0 40px 0',
+            fontSize: '16px',
+            lineHeight: 1.7,
+            maxWidth: '460px',
+            margin: '0 0 32px 0',
           }}
         >
           {t('heroDescription')}
@@ -68,7 +66,7 @@ export const HeroSection = memo(function HeroSection() {
         <div
           style={{
             display: 'flex',
-            gap: '20px',
+            gap: '16px',
           }}
         >
           <Link href="/products">
@@ -77,10 +75,10 @@ export const HeroSection = memo(function HeroSection() {
                 background: '#2563eb',
                 color: '#fff',
                 border: 'none',
-                padding: '20px 36px',
-                borderRadius: '18px',
+                padding: '16px 32px',
+                borderRadius: '14px',
                 fontWeight: 800,
-                fontSize: '16px',
+                fontSize: '15px',
                 cursor: 'pointer',
               }}
             >
@@ -92,12 +90,12 @@ export const HeroSection = memo(function HeroSection() {
             <button
               style={{
                 background: '#fff',
-                border: '1px solid rgba(15,23,42,0.08)',
+                border: '1px solid rgba(15,23,42,0.1)',
                 color: '#0f172a',
-                padding: '20px 36px',
-                borderRadius: '18px',
+                padding: '16px 32px',
+                borderRadius: '14px',
                 fontWeight: 700,
-                fontSize: '16px',
+                fontSize: '15px',
                 cursor: 'pointer',
               }}
             >
@@ -113,18 +111,17 @@ export const HeroSection = memo(function HeroSection() {
         style={{
           position: 'relative',
           width: '100%',
-          height: 720,
-          borderRadius: '36px',
+          height: 520,
+          borderRadius: '28px',
           overflow: 'hidden',
-          boxShadow: '0 40px 100px rgba(15,23,42,0.18)',
-          transform: 'translateX(40px)',
+          boxShadow: '0 30px 80px rgba(15,23,42,0.14)',
         }}
       >
         <Image
           src="/hero-bg.jpg"
-          alt="Rico Car Accessories - Premium automotive components"
+          alt="Rico Car Accessories - Automotive accessories supplier"
           fill
-          sizes="(max-width: 768px) 100vw, 52vw"
+          sizes="(max-width: 768px) 100vw, 50vw"
           priority
           style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
         />
