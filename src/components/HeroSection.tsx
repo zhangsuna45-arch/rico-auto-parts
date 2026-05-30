@@ -111,19 +111,17 @@ export const HeroSection = memo(function HeroSection() {
         style={{
           position: 'relative',
           width: '100%',
-          height: 520,
-          borderRadius: '28px',
-          overflow: 'hidden',
-          boxShadow: '0 30px 80px rgba(15,23,42,0.14)',
+          height: 'clamp(400px, 42vw, 620px)',
+          marginRight: '-48px',
         }}
       >
         <Image
-          src="/hero-bg.jpg"
-          alt="Rico Car Accessories - Automotive accessories supplier"
+          src="/images/hero-automotive-accessories.webp"
+          alt="Rico Car Accessories - Automotive accessories supplier from China"
           fill
-          sizes="(max-width: 768px) 100vw, 50vw"
+          sizes="55vw"
           priority
-          style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
+          style={{ objectFit: 'contain', objectPosition: 'center right' }}
         />
       </div>
     </section>
