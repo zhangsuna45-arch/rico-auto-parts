@@ -47,7 +47,7 @@ export const HeroSection = memo(function HeroSection() {
         >
           {t('heroTitle1')}
           <br />
-          {t('heroTitle2')}
+          <span style={{ color: '#2563eb' }}>{t('heroTitle2')}</span>
           <br />
           {t('heroTitle3')}
         </h1>

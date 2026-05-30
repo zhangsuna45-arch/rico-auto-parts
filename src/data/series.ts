@@ -73,7 +73,7 @@ export const seriesList: ProductSeries[] = [
     id: 'ser-int-08',
     name: 'Car Air Fresheners',
     slug: 'car-air-fresheners',
-    categorySlug: 'interior-accessories',
+    categorySlug: 'air-fresheners',
     description: 'Interior air fresheners and scent diffusers in various types, fragrances, and designs for a pleasant cabin environment.',
     image: img(4),
   },

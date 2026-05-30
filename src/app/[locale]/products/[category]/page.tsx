@@ -18,7 +18,8 @@ export function generateStaticParams() {
       { slug: 'electronics-charging' },
       { slug: 'car-lighting' },
       { slug: 'exterior-accessories' },
-      { slug: 'functional-accessories' },
+      { slug: 'air-fresheners' },
+	      { slug: 'functional-accessories' },
     ]) {
       params.push({ locale, category: c.slug });
     }
