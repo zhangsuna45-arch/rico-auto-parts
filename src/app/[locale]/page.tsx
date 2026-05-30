@@ -96,6 +96,8 @@ export default async function Home({ params }: HomeProps) {
         background: '#f7f9fc',
         minHeight: '100vh',
         color: '#0f172a',
+        width: '100%',
+        overflowX: 'hidden',
       }}
     >
       <OrganizationSchema />

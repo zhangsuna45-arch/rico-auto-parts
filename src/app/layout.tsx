@@ -34,6 +34,7 @@ export default async function RootLayout({
           minHeight: '100vh',
           display: 'flex',
           flexDirection: 'column',
+          overflowX: 'hidden',
         }}
       >
         {children}

@@ -12,141 +12,129 @@ export const HeroSection = memo(function HeroSection() {
   return (
     <section
       style={{
-        position: 'relative',
         width: '100%',
-        minHeight: 'clamp(520px, 48vw, 680px)',
-        background: 'linear-gradient(150deg, #111827 0%, #1a1f2e 50%, #1e2433 100%)',
-        maxWidth: '100vw',
         overflowX: 'hidden',
-        display: 'flex',
-        alignItems: 'center',
+        background: 'linear-gradient(150deg, #111827 0%, #1a1f2e 50%, #1e2433 100%)',
+        position: 'relative',
       }}
     >
-      {/* Right side: product image bleeding to right edge */}
       <div
         style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: 'clamp(360px, 48vw, 680px)',
-        }}
-      >
-        <Image
-          src="/images/hero-banner.webp"
-          alt=""
-          fill
-          sizes="48vw"
-          priority
-          style={{ objectFit: 'cover', objectPosition: 'center left' }}
-        />
-        {/* Gradient overlay: fades image left edge into background */}
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            top: 0,
-            bottom: 0,
-            width: '180px',
-            background: 'linear-gradient(to right, #1a1f2e 0%, transparent 100%)',
-          }}
-        />
-      </div>
-
-      {/* Left content */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 2,
-          maxWidth: '1280px',
-          width: '100%',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: '60px 24px',
+          padding: 'clamp(48px, 6vw, 96px) 24px',
         }}
       >
-        <div style={{ maxWidth: '500px' }}>
-          <p
-            style={{
-              color: '#3b82f6',
-              fontWeight: 700,
-              letterSpacing: '4px',
-              fontSize: '13px',
-              margin: '0 0 20px 0',
-            }}
-          >
-            {t('heroSubtitle')}
-          </p>
+        <div
+          className="hero-grid"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '45% 55%',
+            alignItems: 'center',
+            gap: '40px',
+          }}
+        >
+          {/* Left content */}
+          <div>
+            <p
+              style={{
+                color: '#3b82f6',
+                fontWeight: 700,
+                letterSpacing: '4px',
+                fontSize: '13px',
+                textTransform: 'uppercase',
+                margin: '0 0 20px 0',
+              }}
+            >
+              {t('heroSubtitle')}
+            </p>
 
-          <h1
-            style={{
-              fontSize: 'clamp(40px, 4.5vw, 62px)',
-              lineHeight: 1.08,
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
-              margin: '0 0 20px 0',
-              color: '#fff',
-            }}
-          >
-            {t('heroTitle1')}
-            <br />
-            <span style={{ color: '#3b82f6' }}>{t('heroTitle2')}</span>
-            <br />
-            {t('heroTitle3')}
-          </h1>
+            <h1
+              style={{
+                fontSize: 'clamp(34px, 3.8vw, 52px)',
+                lineHeight: 1.12,
+                fontWeight: 800,
+                letterSpacing: '-0.02em',
+                margin: '0 0 20px 0',
+                color: '#fff',
+              }}
+            >
+              {t('heroTitle1')}
+              <br />
+              <span style={{ color: '#3b82f6' }}>{t('heroTitle2')}</span>
+              <br />
+              {t('heroTitle3')}
+              <br />
+              {t('heroTitle4')}
+            </h1>
 
-          <p
-            style={{
-              color: 'rgba(255,255,255,0.65)',
-              fontSize: '16px',
-              lineHeight: 1.7,
-              maxWidth: '440px',
-              margin: '0 0 32px 0',
-            }}
-          >
-            {t('heroDescription')}
-          </p>
+            <p
+              style={{
+                color: 'rgba(255,255,255,0.6)',
+                fontSize: '16px',
+                lineHeight: 1.7,
+                maxWidth: '440px',
+                margin: '0 0 32px 0',
+              }}
+            >
+              {t('heroDescription')}
+            </p>
 
-          <div
-            style={{
-              display: 'flex',
-              gap: '16px',
-            }}
-          >
-            <Link href="/products">
-              <button
-                style={{
-                  background: '#3b82f6',
-                  color: '#fff',
-                  border: 'none',
-                  padding: '16px 32px',
-                  borderRadius: '14px',
-                  fontWeight: 800,
-                  fontSize: '15px',
-                  cursor: 'pointer',
-                }}
-              >
-                {t('exploreProducts')}
-              </button>
-            </Link>
+            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+              <Link href="/products">
+                <button
+                  style={{
+                    background: '#3b82f6',
+                    color: '#fff',
+                    border: 'none',
+                    padding: '16px 32px',
+                    borderRadius: '14px',
+                    fontWeight: 800,
+                    fontSize: '15px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {t('exploreProducts')}
+                </button>
+              </Link>
 
-            <Link href="/contact">
-              <button
-                style={{
-                  background: 'transparent',
-                  border: '1px solid rgba(255,255,255,0.25)',
-                  color: '#fff',
-                  padding: '16px 32px',
-                  borderRadius: '14px',
-                  fontWeight: 700,
-                  fontSize: '15px',
-                  cursor: 'pointer',
-                }}
-              >
-                {t('contactUs')}
-              </button>
-            </Link>
+              <Link href="/contact">
+                <button
+                  style={{
+                    background: 'transparent',
+                    border: '1px solid rgba(255,255,255,0.25)',
+                    color: '#fff',
+                    padding: '16px 32px',
+                    borderRadius: '14px',
+                    fontWeight: 700,
+                    fontSize: '15px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {t('contactUs')}
+                </button>
+              </Link>
 
-            <CatalogueButton />
+              <CatalogueButton />
+            </div>
+          </div>
+
+          {/* Right image — normal document flow, no absolute positioning */}
+          <div>
+            <Image
+              src="/images/hero-banner.webp"
+              alt=""
+              width={800}
+              height={600}
+              priority
+              sizes="(max-width: 768px) 100vw, 55vw"
+              style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block',
+                objectFit: 'contain',
+              }}
+            />
           </div>
         </div>
       </div>
@@ -163,6 +151,16 @@ export const HeroSection = memo(function HeroSection() {
           pointerEvents: 'none',
         }}
       />
+
+      {/* Responsive: single column on mobile */}
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 32px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 });
