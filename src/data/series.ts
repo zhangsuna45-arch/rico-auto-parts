@@ -18,7 +18,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Leather & Comfort',
     slug: 'leather-comfort',
     categorySlug: 'interior-accessories',
-    description: 'Steering covers, seat cushions, and armrest boxes with premium leather and memory foam for a refined interior.',
+    description: 'Steering wheel covers, seat cushions, and armrest storage boxes available in various materials and configurations for interior comfort upgrades.',
     image: img(1),
   },
   {
@@ -26,7 +26,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Floor Protection',
     slug: 'floor-protection',
     categorySlug: 'interior-accessories',
-    description: '3D custom-fit foot mats and non-slip dashboard mats with waterproof, odorless TPE materials.',
+    description: 'Vehicle floor mats and dashboard covers available in multiple materials including custom-fit and universal options for all-season protection.',
     image: img(2),
   },
   {
@@ -34,7 +34,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Interior Essentials',
     slug: 'interior-essentials',
     categorySlug: 'interior-accessories',
-    description: 'Tissue boxes, perfume diffusers, ashtrays, sun shades, stickers, and microfiber towels.',
+    description: 'Everyday interior accessories including organizers, air fresheners, sun protection, waste solutions, and cleaning supplies for vehicle upkeep.',
     image: img(3),
   },
 
@@ -46,7 +46,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Power & Control',
     slug: 'power-control',
     categorySlug: 'electronics-charging',
-    description: 'Fast chargers, remote controls, window switches, and keyless entry systems.',
+    description: 'Vehicle power and control accessories including chargers, remote systems, switch assemblies, and keyless entry solutions for various vehicle applications.',
     image: img(1),
   },
   {
@@ -54,7 +54,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Display & Tech',
     slug: 'display-tech',
     categorySlug: 'electronics-charging',
-    description: 'HUD displays and paddle shifters for enhanced driving information and control.',
+    description: 'Dashboard display technology and driving enhancement accessories including HUD units, digital instruments, and steering wheel control modules.',
     image: img(2),
   },
   {
@@ -62,7 +62,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Comfort Electronics',
     slug: 'comfort-electronics',
     categorySlug: 'electronics-charging',
-    description: 'Quiet 12V car fans for stay-cool comfort during every drive.',
+    description: 'Vehicle climate comfort electronics including 12V cooling fans in various sizes, mounting styles, and airflow configurations.',
     image: img(3),
   },
   {
@@ -70,7 +70,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Interior LED',
     slug: 'interior-led',
     categorySlug: 'electronics-charging',
-    description: 'App-controlled RGB ambient lighting strips and LED driver modules.',
+    description: 'Interior LED lighting products including ambient light strips, accent lighting, and driver modules in various configurations and control options.',
     image: img(4),
   },
 
@@ -82,7 +82,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Headlight & Fog',
     slug: 'headlight-fog',
     categorySlug: 'car-lighting',
-    description: 'High-lumen LED headlight bulbs and fog lamp conversions for maximum visibility.',
+    description: 'LED headlight bulbs and fog lamp replacements covering major bulb types and fitments for passenger cars, trucks, and commercial vehicles.',
     image: img(4),
   },
   {
@@ -90,7 +90,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Signal & Marker',
     slug: 'signal-marker',
     categorySlug: 'car-lighting',
-    description: 'Side marker lights, emergency flash lights, and taxi roof lights.',
+    description: 'Signal, marker, and indicator lighting products including side markers, emergency warning lights, and commercial vehicle roof lights in various specifications.',
     image: img(1),
   },
   {
@@ -98,7 +98,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Truck & Off-Road',
     slug: 'truck-offroad',
     categorySlug: 'car-lighting',
-    description: 'Heavy-duty LED light bars for trucks, SUVs and off-road vehicles.',
+    description: 'Auxiliary LED light bars and off-road lighting for trucks, SUVs, and outdoor vehicles in a range of sizes, beam patterns, and mounting options.',
     image: img(2),
   },
 
@@ -110,7 +110,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Body Styling',
     slug: 'body-styling',
     categorySlug: 'exterior-accessories',
-    description: 'ABS body kits for sporty styling and power-folding side mirrors.',
+    description: 'Vehicle body styling components and mirror assemblies including body kits, trim pieces, and power-folding mirror systems available in various styles.',
     image: img(3),
   },
   {
@@ -118,7 +118,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Antenna & Styling',
     slug: 'antenna-styling',
     categorySlug: 'exterior-accessories',
-    description: 'Shark fin antennas and premium 3D chrome car emblems.',
+    description: 'Vehicle antennas and exterior emblems in various styles and finishes including shark fin designs, traditional masts, and decorative badging.',
     image: img(1),
   },
 
@@ -130,7 +130,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Safety & Child',
     slug: 'safety-child',
     categorySlug: 'functional-accessories',
-    description: 'ECE-certified child car seats, safety belts, buckles, and steering wheel locks.',
+    description: 'Vehicle safety products including child car seats, seat belts, security locks, and restraint systems meeting international safety standards for multiple markets.',
     image: img(2),
   },
   {
@@ -138,7 +138,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Travel & Storage',
     slug: 'travel-storage',
     categorySlug: 'functional-accessories',
-    description: 'Luggage holders, car refrigerators, phone holders, and multi-purpose car trays.',
+    description: 'Travel and storage solutions for vehicles including cargo carriers, portable refrigeration, device mounts, and multi-purpose organizers for on-the-road convenience.',
     image: img(3),
   },
   {
@@ -146,7 +146,7 @@ export const seriesList: ProductSeries[] = [
     name: 'Emergency & Tools',
     slug: 'emergency-tools',
     categorySlug: 'functional-accessories',
-    description: 'Air inflators, jump starters, snow chains, air filters, and cigarette lighters.',
+    description: 'Roadside emergency and vehicle maintenance products including tire inflators, jump starters, snow chains, replacement filters, and tool accessories.',
     image: img(1),
   },
 ];
