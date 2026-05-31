@@ -363,6 +363,7 @@ export default async function Home({ params }: HomeProps) {
             padding: 'clamp(48px, 6vw, 72px) 32px',
             border: '1px solid rgba(15,23,42,0.06)',
             boxShadow: '0 16px 48px rgba(15,23,42,0.06)',
+            textAlign: 'center',
           }}
         >
           <SectionLabel text={t('ctaLabel')} />
@@ -382,7 +383,7 @@ export default async function Home({ params }: HomeProps) {
               fontSize: '16px',
               color: '#64748b',
               maxWidth: '520px',
-              margin: '0 0 32px 0',
+              margin: '0 auto 32px auto',
               lineHeight: 1.7,
             }}
           >
@@ -391,6 +392,7 @@ export default async function Home({ params }: HomeProps) {
           <div
             style={{
               display: 'flex',
+              justifyContent: 'center',
               gap: '14px',
               flexWrap: 'wrap',
             }}
