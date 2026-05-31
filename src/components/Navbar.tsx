@@ -1,34 +1,35 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { LangSwitcher } from './LangSwitcher';
-import { categories } from '@/data/categories';
-import { seriesList } from '@/data/series';
 
-const interiorSeries = seriesList.filter((s) => s.categorySlug === 'interior-accessories');
-const airFreshenerSeries = seriesList.filter((s) => s.categorySlug === 'air-fresheners');
-const electronicsSeries = seriesList.filter((s) => s.categorySlug === 'electronics');
-const lightingSeries = seriesList.filter((s) => s.categorySlug === 'lighting');
-const exteriorSeries = seriesList.filter((s) => s.categorySlug === 'exterior-accessories');
-
-const utilitySeries = seriesList.filter((s) => {
-  const slugs = ['phone-holders', 'car-trays', 'luggage-holders', 'car-refrigerators', 'air-inflators', 'air-vents'];
-  return s.categorySlug === 'utility-safety-products' && slugs.includes(s.slug);
-});
-const safetySeries = seriesList.filter((s) => {
-  const slugs = ['baby-seats', 'safety-belts', 'buckles', 'car-locks', 'snow-chains'];
-  return s.categorySlug === 'utility-safety-products' && slugs.includes(s.slug);
-});
-const maintenanceSeries = seriesList.filter((s) => {
-  const slugs = ['air-filters', 'batteries', 'cigarette-lighters'];
-  return s.categorySlug === 'utility-safety-products' && slugs.includes(s.slug);
-});
+interface NavProduct {
+  id: string;
+  name: string;
+  slug: string;
+  categorySlug: string;
+  seriesSlug: string;
+  categoryName: string;
+}
 
 export function Navbar() {
   const t = useTranslations('nav');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [products, setProducts] = useState<NavProduct[]>([]);
+
+  useEffect(() => {
+    fetch('/api/products-with-images')
+      .then((res) => res.json())
+      .then((data) => setProducts(data.products || []))
+      .catch(() => setProducts([]));
+  }, []);
+
+  const grouped = products.reduce<Record<string, NavProduct[]>>((acc, p) => {
+    (acc[p.categoryName] ||= []).push(p);
+    return acc;
+  }, {});
 
   return (
     <header
@@ -92,7 +93,7 @@ export function Navbar() {
             {t('home')}
           </Link>
 
-          {/* Products — menu trigger only (no page navigation) */}
+          {/* Products — dropdown with product images */}
           <div
             style={{ position: 'relative' }}
             onMouseEnter={() => setMenuOpen(true)}
@@ -119,7 +120,6 @@ export function Navbar() {
               </svg>
             </span>
 
-            {/* Mega menu — 3 columns */}
             {menuOpen && (
               <div
                 style={{
@@ -131,83 +131,65 @@ export function Navbar() {
                   borderRadius: '16px',
                   boxShadow: '0 20px 60px rgba(15,23,42,0.12), 0 2px 8px rgba(15,23,42,0.06)',
                   border: '1px solid rgba(15,23,42,0.08)',
-                  padding: '32px',
-                  minWidth: '780px',
+                  padding: '24px 28px',
+                  minWidth: '480px',
+                  maxHeight: '70vh',
+                  overflowY: 'auto',
                   zIndex: 200,
                 }}
               >
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(3, 1fr)',
-                    gap: '32px',
-                  }}
-                >
-                  {/* Column 1: Interior Accessories + Air Fresheners */}
-                  <div>
-                    <MenuCategory
-                      name={categories.find((c) => c.slug === 'interior-accessories')?.name || 'Interior Accessories'}
-                      slug="interior-accessories"
-                      series={interiorSeries}
-                      onClose={() => setMenuOpen(false)}
-                    />
-                    <div style={{ height: '24px' }} />
-                    <MenuCategory
-                      name={categories.find((c) => c.slug === 'air-fresheners')?.name || 'Air Fresheners'}
-                      slug="air-fresheners"
-                      series={airFreshenerSeries}
-                      onClose={() => setMenuOpen(false)}
-                    />
+                {Object.entries(grouped).map(([catName, items]) => (
+                  <div key={catName} style={{ marginBottom: '16px' }}>
+                    <h4
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        color: '#94a3b8',
+                        textTransform: 'uppercase',
+                        letterSpacing: '2px',
+                        marginBottom: '8px',
+                        paddingBottom: '6px',
+                        borderBottom: '1px solid #f1f5f9',
+                      }}
+                    >
+                      {catName}
+                    </h4>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px 2px' }}>
+                      {items.map((p) => (
+                        <Link
+                          key={p.id}
+                          href={`/products/${p.categorySlug}/${p.seriesSlug}/${p.slug}`}
+                          onClick={() => setMenuOpen(false)}
+                          style={{
+                            textDecoration: 'none',
+                            color: '#475569',
+                            fontSize: '12px',
+                            fontWeight: 500,
+                            padding: '3px 10px',
+                            borderRadius: '6px',
+                            whiteSpace: 'nowrap',
+                            transition: 'background 0.15s, color 0.15s',
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLElement).style.background = '#eff6ff';
+                            (e.currentTarget as HTMLElement).style.color = '#2563eb';
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLElement).style.background = 'transparent';
+                            (e.currentTarget as HTMLElement).style.color = '#475569';
+                          }}
+                        >
+                          {p.name}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-
-                  {/* Column 2: Electronics + Lighting */}
-                  <div>
-                    <MenuCategory
-                      name={categories.find((c) => c.slug === 'electronics')?.name || 'Electronics'}
-                      slug="electronics"
-                      series={electronicsSeries}
-                      onClose={() => setMenuOpen(false)}
-                    />
-                    <div style={{ height: '24px' }} />
-                    <MenuCategory
-                      name={categories.find((c) => c.slug === 'lighting')?.name || 'Lighting'}
-                      slug="lighting"
-                      series={lightingSeries}
-                      onClose={() => setMenuOpen(false)}
-                    />
-                  </div>
-
-                  {/* Column 3: Exterior + Utility + Safety + Maintenance */}
-                  <div>
-                    <MenuCategory
-                      name={categories.find((c) => c.slug === 'exterior-accessories')?.name || 'Exterior Accessories'}
-                      slug="exterior-accessories"
-                      series={exteriorSeries}
-                      onClose={() => setMenuOpen(false)}
-                    />
-                    <div style={{ height: '24px' }} />
-                    <MenuGroup
-                      label="Utility Products"
-                      series={utilitySeries}
-                      categorySlug="utility-safety-products"
-                      onClose={() => setMenuOpen(false)}
-                    />
-                    <div style={{ height: '20px' }} />
-                    <MenuGroup
-                      label="Safety Products"
-                      series={safetySeries}
-                      categorySlug="utility-safety-products"
-                      onClose={() => setMenuOpen(false)}
-                    />
-                    <div style={{ height: '20px' }} />
-                    <MenuGroup
-                      label="Maintenance & Accessories"
-                      series={maintenanceSeries}
-                      categorySlug="utility-safety-products"
-                      onClose={() => setMenuOpen(false)}
-                    />
-                  </div>
-                </div>
+                ))}
+                {products.length === 0 && (
+                  <p style={{ textAlign: 'center', color: '#94a3b8', fontSize: '13px', padding: '20px 0' }}>
+                    Loading products...
+                  </p>
+                )}
               </div>
             )}
           </div>
@@ -243,107 +225,5 @@ export function Navbar() {
         </nav>
       </div>
     </header>
-  );
-}
-
-function MenuCategory({
-  name,
-  slug,
-  series,
-  onClose,
-}: {
-  name: string;
-  slug: string;
-  series: { name: string; slug: string; categorySlug: string }[];
-  onClose: () => void;
-}) {
-  return (
-    <div>
-      <Link
-        href={`/products/${slug}`}
-        style={{
-          textDecoration: 'none',
-          color: '#0f172a',
-          fontWeight: 800,
-          fontSize: '13px',
-          paddingBottom: '6px',
-          marginBottom: '6px',
-          borderBottom: '2px solid #2563eb',
-          display: 'inline-block',
-        }}
-        onClick={onClose}
-      >
-        {name}
-      </Link>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '6px' }}>
-        {series.map((s) => (
-          <Link
-            key={s.slug}
-            href={`/products/${s.categorySlug}/${s.slug}`}
-            style={{
-              textDecoration: 'none',
-              color: '#64748b',
-              fontSize: '12px',
-              fontWeight: 500,
-              padding: '2px 0',
-              display: 'block',
-            }}
-            onClick={onClose}
-          >
-            {s.name}
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function MenuGroup({
-  label,
-  series,
-  categorySlug,
-  onClose,
-}: {
-  label: string;
-  series: { name: string; slug: string; categorySlug: string }[];
-  categorySlug: string;
-  onClose: () => void;
-}) {
-  return (
-    <div>
-      <span
-        style={{
-          color: '#94a3b8',
-          fontWeight: 700,
-          fontSize: '10px',
-          letterSpacing: '2px',
-          textTransform: 'uppercase',
-          paddingBottom: '4px',
-          display: 'inline-block',
-          marginBottom: '4px',
-        }}
-      >
-        {label}
-      </span>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '2px' }}>
-        {series.map((s) => (
-          <Link
-            key={s.slug}
-            href={`/products/${categorySlug}/${s.slug}`}
-            style={{
-              textDecoration: 'none',
-              color: '#64748b',
-              fontSize: '12px',
-              fontWeight: 500,
-              padding: '2px 0',
-              display: 'block',
-            }}
-            onClick={onClose}
-          >
-            {s.name}
-          </Link>
-        ))}
-      </div>
-    </div>
   );
 }

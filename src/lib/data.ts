@@ -40,12 +40,13 @@ function parseJson<T>(raw: unknown, fallback: T): T {
 // ── Mappers ──
 
 function mapCategory(r: AirtableCategory): Category {
+  const img = extractAttachmentUrl(r.Image);
   return {
     id: String(r.id ?? ''),
     name: String(r.Name ?? ''),
     slug: String(r.Slug ?? ''),
     description: String(r.Description ?? ''),
-    image: extractAttachmentUrl(r.Image),
+    image: img || '',
   };
 }
 
@@ -53,7 +54,7 @@ function mapProduct(r: AirtableProduct): Product {
   const enterprise = parseJson<Record<string, string>>(r.Enterprise, {});
   const mainImage = extractAttachmentUrl(r.Image);
   const galleryImages = extractAttachments(r.Gallery);
-  const effectiveMain = mainImage || (galleryImages.length > 0 ? galleryImages[0] : '');
+  const effectiveMain = mainImage || (galleryImages.length > 0 ? galleryImages[0] : '/placeholder-1.svg');
 
   return {
     id: String(r.id ?? ''),
