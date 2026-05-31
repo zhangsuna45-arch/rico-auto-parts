@@ -24,14 +24,14 @@ export const categories: Category[] = [
   {
     id: '3',
     name: 'Electronics',
-    slug: 'electronics-charging',
+    slug: 'electronics',
     description: 'In-car electronics and charging solutions covering chargers, HUD displays, cooling fans, window switches, and ambient lighting systems.',
     image: '/images/categories/electronics.jpg',
   },
   {
     id: '4',
     name: 'Lighting',
-    slug: 'car-lighting',
+    slug: 'lighting',
     description: 'Complete automotive lighting solutions including headlight bulbs, fog lamps, signal and marker lights, truck lighting, and warning beacons.',
     image: '/images/categories/lighting.jpg',
   },
@@ -44,8 +44,8 @@ export const categories: Category[] = [
   },
   {
     id: '6',
-    name: 'Utility Products',
-    slug: 'functional-accessories',
+    name: 'Utility & Safety Products',
+    slug: 'utility-safety-products',
     description: 'Practical vehicle accessories covering child safety seats, portable refrigeration, tire inflators, snow chains, and on-the-road travel essentials.',
     image: '/images/categories/safety.jpg',
   },

@@ -112,7 +112,11 @@
     "customDescription": "Kontaktieren Sie uns für kundenspezifische OEM-Anforderungen und Großhandelspreise",
     "requestQuote": "Angebot Anfordern",
     "product": "Produkt",
-    "products": "Produkte"
+    "products": "Produkte",
+    "series": "Serie",
+    "series_plural": "Serien",
+    "browseCategory": "Kategorie Durchsuchen",
+    "viewAllInCategory": "Alle in {category} Anzeigen"
   },
   "productDetail": {
     "keyFeatures": "HAUPTMERKMALE",

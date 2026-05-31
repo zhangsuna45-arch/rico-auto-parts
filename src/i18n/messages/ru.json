@@ -112,7 +112,11 @@
     "customDescription": "Свяжитесь с нами для индивидуальных OEM-требований и оптовых цен",
     "requestQuote": "Запросить Предложение",
     "product": "товар",
-    "products": "товаров"
+    "products": "товаров",
+    "series": "Серия",
+    "series_plural": "Серий",
+    "browseCategory": "Просмотр Категории",
+    "viewAllInCategory": "Смотреть Все в {category}"
   },
   "productDetail": {
     "keyFeatures": "КЛЮЧЕВЫЕ ХАРАКТЕРИСТИКИ",

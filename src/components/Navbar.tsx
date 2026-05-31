@@ -1,11 +1,15 @@
 'use client';
 
+import { useState } from 'react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
 import { LangSwitcher } from './LangSwitcher';
+import { categories } from '@/data/categories';
+import { seriesList } from '@/data/series';
 
 export function Navbar() {
   const t = useTranslations('nav');
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <header
@@ -17,6 +21,7 @@ export function Navbar() {
         backdropFilter: 'blur(12px)',
         borderBottom: '1px solid rgba(15,23,42,0.06)',
       }}
+      onMouseLeave={() => setMenuOpen(false)}
     >
       <div
         style={{
@@ -67,9 +72,106 @@ export function Navbar() {
           <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
             {t('home')}
           </Link>
-          <Link href="/products" style={{ textDecoration: 'none', color: 'inherit' }}>
-            {t('products')}
-          </Link>
+
+          {/* Products dropdown */}
+          <div
+            style={{ position: 'relative' }}
+            onMouseEnter={() => setMenuOpen(true)}
+          >
+            <Link
+              href="/products"
+              style={{
+                textDecoration: 'none',
+                color: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+              }}
+            >
+              {t('products')}
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+                <path
+                  d="M1 1l4 4 4-4"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </Link>
+
+            {/* Mega menu dropdown */}
+            {menuOpen && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 16px)',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: '#fff',
+                  borderRadius: '16px',
+                  boxShadow: '0 20px 60px rgba(15,23,42,0.12), 0 2px 8px rgba(15,23,42,0.06)',
+                  border: '1px solid rgba(15,23,42,0.08)',
+                  padding: '32px',
+                  minWidth: '720px',
+                  zIndex: 200,
+                }}
+              >
+                <div
+                  style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(3, 1fr)',
+                    gap: '32px',
+                  }}
+                >
+                  {categories.map((cat) => {
+                    const catSeries = seriesList.filter((s) => s.categorySlug === cat.slug);
+                    return (
+                      <div key={cat.slug}>
+                        <Link
+                          href={`/products/${cat.slug}`}
+                          style={{
+                            textDecoration: 'none',
+                            color: '#0f172a',
+                            fontWeight: 800,
+                            fontSize: '14px',
+                            paddingBottom: '8px',
+                            marginBottom: '8px',
+                            borderBottom: '2px solid #2563eb',
+                            display: 'inline-block',
+                          }}
+                          onClick={() => setMenuOpen(false)}
+                        >
+                          {cat.name}
+                        </Link>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '8px' }}>
+                          {catSeries.map((s) => (
+                            <Link
+                              key={s.id}
+                              href={`/products/${cat.slug}/${s.slug}`}
+                              style={{
+                                textDecoration: 'none',
+                                color: '#64748b',
+                                fontSize: '13px',
+                                fontWeight: 500,
+                                padding: '3px 0',
+                                display: 'block',
+                                transition: 'color 0.15s',
+                              }}
+                              onClick={() => setMenuOpen(false)}
+                            >
+                              {s.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
           <Link href="/about" style={{ textDecoration: 'none', color: 'inherit' }}>
             {t('about')}
           </Link>
@@ -93,6 +195,7 @@ export function Navbar() {
               borderRadius: '999px',
               fontWeight: 800,
               textDecoration: 'none',
+              whiteSpace: 'nowrap',
             }}
           >
             {t('whatsapp')}

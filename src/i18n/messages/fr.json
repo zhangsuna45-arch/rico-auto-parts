@@ -112,7 +112,11 @@
     "customDescription": "Contactez-nous pour des exigences OEM personnalisées et des prix de gros",
     "requestQuote": "Demander un Devis",
     "product": "produit",
-    "products": "produits"
+    "products": "produits",
+    "series": "Série",
+    "series_plural": "Séries",
+    "browseCategory": "Explorer la Catégorie",
+    "viewAllInCategory": "Voir Tout dans {category}"
   },
   "productDetail": {
     "keyFeatures": "CARACTÉRISTIQUES PRINCIPALES",

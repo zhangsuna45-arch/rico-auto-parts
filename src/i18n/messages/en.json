@@ -109,7 +109,11 @@
     "customDescription": "Contact us for custom requirements and wholesale pricing",
     "requestQuote": "Request Quote",
     "product": "product",
-    "products": "products"
+    "products": "products",
+    "series": "Series",
+    "series_plural": "Series",
+    "browseCategory": "Browse Category",
+    "viewAllInCategory": "View All in {category}"
   },
   "productDetail": {
     "keyFeatures": "KEY FEATURES",

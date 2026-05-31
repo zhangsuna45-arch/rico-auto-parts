@@ -15,11 +15,11 @@ export function generateStaticParams() {
   for (const locale of routing.locales) {
     for (const c of [
       { slug: 'interior-accessories' },
-      { slug: 'electronics-charging' },
-      { slug: 'car-lighting' },
-      { slug: 'exterior-accessories' },
       { slug: 'air-fresheners' },
-	      { slug: 'functional-accessories' },
+      { slug: 'electronics' },
+      { slug: 'lighting' },
+      { slug: 'exterior-accessories' },
+      { slug: 'utility-safety-products' },
     ]) {
       params.push({ locale, category: c.slug });
     }

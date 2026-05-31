@@ -1,6 +1,4 @@
-import { ProductCard } from '@/components/ProductCard';
-import { categories } from '@/data/categories';
-import { getProducts } from '@/lib/data';
+import { getCategories, getSeriesByCategorySlug } from '@/lib/data';
 import { BreadcrumbSchema } from '@/components/StructuredData';
 import { Link } from '@/i18n/navigation';
 import { getTranslations } from 'next-intl/server';
@@ -20,7 +18,7 @@ export async function generateMetadata({ params }: ProductsPageProps): Promise<M
   const t = await getTranslations({ locale, namespace: 'products' });
 
   return {
-    title: t('ourProducts') + ' | ' + t('productCategoriesHeading'),
+    title: t('productCategoriesHeading'),
     description: t('browseCatalog'),
     alternates: {
       canonical: `https://www.ricocaraccessories.com/${locale}/products`,
@@ -29,7 +27,7 @@ export async function generateMetadata({ params }: ProductsPageProps): Promise<M
       ),
     },
     openGraph: {
-      title: t('ourProducts') + ' | ' + t('productCategoriesHeading'),
+      title: t('productCategoriesHeading'),
       description: t('browseCatalog'),
     },
   };
@@ -38,7 +36,19 @@ export async function generateMetadata({ params }: ProductsPageProps): Promise<M
 export default async function ProductsPage({ params }: ProductsPageProps) {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'products' });
-  const products = await getProducts();
+  const categories = await getCategories();
+
+  // Get series counts per category
+  const seriesCounts = await Promise.all(
+    categories.map(async (cat) => {
+      const series = await getSeriesByCategorySlug(cat.slug);
+      return { slug: cat.slug, count: series.length };
+    }),
+  );
+
+  function getSeriesCount(slug: string): number {
+    return seriesCounts.find((s) => s.slug === slug)?.count ?? 0;
+  }
 
   return (
     <div style={{ background: '#f7f9fc', minHeight: '100vh' }}>
@@ -76,40 +86,50 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
       {/* Header */}
       <div
         style={{
-          background: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
-          color: '#fff',
-          padding: '80px 60px',
+          background: '#fff',
+          padding: '80px 24px',
           textAlign: 'center',
+          borderBottom: '1px solid rgba(15,23,42,0.04)',
         }}
       >
         <p
           style={{
-            color: 'rgba(255,255,255,0.9)',
+            color: '#2563eb',
             fontWeight: 700,
             letterSpacing: '4px',
-            marginBottom: '20px',
-            margin: '0 0 20px 0',
+            fontSize: '13px',
+            textTransform: 'uppercase',
+            margin: '0 0 16px 0',
           }}
         >
           {t('ourProducts')}
         </p>
         <h1
           style={{
-            fontSize: '64px',
+            fontSize: 'clamp(36px, 5vw, 56px)',
             fontWeight: 900,
-            lineHeight: 1.1,
-            marginBottom: '20px',
-            margin: '0 0 20px 0',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.08,
+            color: '#0f172a',
+            margin: '0 0 16px 0',
           }}
         >
           {t('productCategoriesHeading')}
         </h1>
-        <p style={{ fontSize: '18px', opacity: 0.9, margin: 0 }}>
+        <p
+          style={{
+            fontSize: '17px',
+            color: '#64748b',
+            maxWidth: '560px',
+            margin: '0 auto',
+            lineHeight: 1.7,
+          }}
+        >
           {t('browseCatalog')}
         </p>
       </div>
 
-      {/* Products grouped by category */}
+      {/* Category cards grid */}
       <section
         style={{
           maxWidth: '1280px',
@@ -117,65 +137,127 @@ export default async function ProductsPage({ params }: ProductsPageProps) {
           padding: '72px 24px',
         }}
       >
-        {products.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '60px 20px' }}>
-            <p style={{ fontSize: '18px', color: '#64748b' }}>
-              {t('noProducts')}
-            </p>
-          </div>
-        )}
-
-        {categories.map((cat) => {
-          const catProducts = products.filter((p) => p.categorySlug === cat.slug);
-          if (catProducts.length === 0) return null;
-
-          return (
-            <div key={cat.slug} style={{ marginBottom: '48px' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
+            gap: '28px',
+          }}
+        >
+          {categories.map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/products/${cat.slug}`}
+              style={{ textDecoration: 'none' }}
+            >
               <div
                 style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'flex-end',
-                  marginBottom: '24px',
+                  background: '#fff',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(15,23,42,0.06)',
+                  boxShadow: '0 4px 20px rgba(15,23,42,0.04)',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
                 }}
               >
-                <h3
+                {/* Category image area */}
+                <div
                   style={{
-                    fontSize: '28px',
-                    fontWeight: 900,
-                    color: '#0f172a',
-                    margin: 0,
+                    background: 'linear-gradient(135deg, #f0f4ff 0%, #e8f0fe 50%, #f5f7fa 100%)',
+                    height: '200px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    position: 'relative',
+                    overflow: 'hidden',
                   }}
                 >
-                  {cat.name}
-                </h3>
-                <Link
-                  href={`/products/${cat.slug}`}
-                  style={{
-                    color: '#2563eb',
-                    fontWeight: 600,
-                    fontSize: '14px',
-                    textDecoration: 'none',
-                  }}
-                >
-                  View All →
-                </Link>
-              </div>
+                  {/* Dot grid pattern */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      backgroundImage:
+                        'radial-gradient(circle, rgba(37,99,235,0.06) 1px, transparent 1px)',
+                      backgroundSize: '20px 20px',
+                    }}
+                  />
+                  {/* Category initial */}
+                  <div
+                    style={{
+                      fontSize: '80px',
+                      fontWeight: 900,
+                      color: 'rgba(37,99,235,0.1)',
+                      letterSpacing: '-4px',
+                      position: 'relative',
+                      zIndex: 1,
+                    }}
+                  >
+                    {cat.name.charAt(0)}
+                  </div>
+                </div>
 
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-                  gap: '32px',
-                }}
-              >
-                {catProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
+                <div style={{ padding: '28px 32px 32px' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginBottom: '10px',
+                    }}
+                  >
+                    <h2
+                      style={{
+                        fontSize: '22px',
+                        fontWeight: 800,
+                        color: '#0f172a',
+                        margin: 0,
+                        lineHeight: 1.3,
+                      }}
+                    >
+                      {cat.name}
+                    </h2>
+                    <span
+                      style={{
+                        background: 'rgba(37,99,235,0.08)',
+                        color: '#2563eb',
+                        padding: '4px 12px',
+                        borderRadius: '20px',
+                        fontSize: '13px',
+                        fontWeight: 700,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {getSeriesCount(cat.slug)} {getSeriesCount(cat.slug) === 1 ? t('series') : t('series_plural')}
+                    </span>
+                  </div>
+                  <p
+                    style={{
+                      fontSize: '14px',
+                      color: '#64748b',
+                      lineHeight: 1.6,
+                      margin: 0,
+                    }}
+                  >
+                    {cat.description}
+                  </p>
+
+                  <div
+                    style={{
+                      marginTop: '16px',
+                      color: '#2563eb',
+                      fontWeight: 700,
+                      fontSize: '14px',
+                    }}
+                  >
+                    {t('browseCategory')} →
+                  </div>
+                </div>
               </div>
-            </div>
-          );
-        })}
+            </Link>
+          ))}
+        </div>
       </section>
     </div>
   );
