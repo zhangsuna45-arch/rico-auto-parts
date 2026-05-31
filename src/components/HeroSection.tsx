@@ -3,14 +3,24 @@
 import { memo } from 'react';
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import { CatalogueButton } from './CatalogueModal';
 
-const modules = [
-  { key: 'heroModuleProducts', icon: 'M5 13l4 4L19 7' },
-  { key: 'heroModuleOEM', icon: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z' },
-  { key: 'heroModuleMOQ', icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' },
-  { key: 'heroModuleShipping', icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z' },
-] as const;
+const features = [
+  { key: 'heroModuleMOQ' as const },
+  { key: 'heroModuleOEM' as const },
+  { key: 'heroModuleProducts' as const },
+  { key: 'heroModuleShipping' as const },
+];
+
+function CheckIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}>
+      <circle cx="12" cy="12" r="12" fill="#2563eb" />
+      <path d="M7 13l3 3 7-7" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export const HeroSection = memo(function HeroSection() {
   const t = useTranslations('home');
@@ -21,47 +31,61 @@ export const HeroSection = memo(function HeroSection() {
         position: 'relative',
         width: '100%',
         overflowX: 'hidden',
-        background: 'linear-gradient(170deg, #f4f5f7 0%, #eaecf0 40%, #f0f2f5 100%)',
-        minHeight: 'clamp(560px, 46vw, 700px)',
+        background: 'linear-gradient(180deg, #ebedf1 0%, #e2e4e9 100%)',
+        minHeight: 900,
         display: 'flex',
         alignItems: 'center',
+        fontFamily: 'Inter, system-ui, sans-serif',
       }}
     >
       <div
+        className="hero-inner"
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: '1400px',
+          maxWidth: 1400,
           width: '100%',
           margin: '0 auto',
-          padding: 'clamp(48px, 6vw, 80px) 24px',
+          padding: '80px 24px',
           display: 'flex',
           alignItems: 'center',
+          gap: 0,
         }}
       >
-        {/* Left content — 45% */}
-        <div style={{ flex: '0 0 45%', maxWidth: '600px' }}>
+        {/* ── Left 45% ── */}
+        <div
+          className="hero-left"
+          style={{
+            flex: '0 0 45%',
+            maxWidth: 700,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          {/* Eyebrow */}
           <p
             style={{
-              color: '#6b7280',
-              fontWeight: 700,
-              letterSpacing: '4px',
-              fontSize: '12px',
+              fontSize: 14,
+              fontWeight: 600,
+              letterSpacing: 4,
               textTransform: 'uppercase',
-              margin: '0 0 16px 0',
+              color: '#6b7280',
+              margin: '0 0 20px 0',
             }}
           >
             {t('heroSubtitle')}
           </p>
 
+          {/* Heading */}
           <h1
             style={{
-              fontSize: 'clamp(32px, 3.6vw, 52px)',
-              lineHeight: 1.15,
+              fontSize: 72,
               fontWeight: 800,
+              lineHeight: 1.05,
               letterSpacing: '-0.02em',
-              margin: '0 0 16px 0',
-              color: '#1a1a1a',
+              color: '#111827',
+              margin: '0 0 32px 0',
             }}
           >
             {t('heroTitle1')}
@@ -69,65 +93,77 @@ export const HeroSection = memo(function HeroSection() {
             <span style={{ color: '#2563eb' }}>{t('heroTitle2')}</span>
           </h1>
 
+          {/* Description */}
           <p
             style={{
+              fontSize: 20,
+              lineHeight: 1.8,
               color: '#6b7280',
-              fontSize: '14px',
-              lineHeight: 1.7,
-              maxWidth: '440px',
-              margin: '0 0 28px 0',
+              maxWidth: 620,
+              margin: '0 0 40px 0',
             }}
           >
             {t('heroDescription')}
           </p>
 
+          {/* Feature grid 2×2 */}
           <div
             style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
-              gap: '12px',
-              marginBottom: '28px',
-              maxWidth: '440px',
+              gap: '14px 24px',
+              marginBottom: 48,
+              maxWidth: 520,
             }}
           >
-            {modules.map(({ key, icon }) => (
-              <div key={key} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div
+            {features.map(({ key }) => (
+              <div
+                key={key}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                }}
+              >
+                <CheckIcon />
+                <span
                   style={{
-                    width: 34,
-                    height: 34,
-                    borderRadius: '50%',
-                    background: '#2563eb',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
+                    fontSize: 15,
+                    fontWeight: 600,
+                    color: '#374151',
+                    lineHeight: 1.3,
                   }}
                 >
-                  <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                    <path d={icon} />
-                  </svg>
-                </div>
-                <span style={{ fontWeight: 600, fontSize: '13px', color: '#374151', lineHeight: 1.3 }}>
                   {t(key)}
                 </span>
               </div>
             ))}
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+          {/* Buttons */}
+          <div
+            className="hero-buttons"
+            style={{
+              display: 'flex',
+              gap: 12,
+              flexWrap: 'wrap',
+              alignItems: 'center',
+            }}
+          >
             <Link href="/" style={{ textDecoration: 'none' }}>
               <button
                 style={{
+                  height: 56,
+                  padding: '0 32px',
                   background: '#2563eb',
                   color: '#fff',
                   border: 'none',
-                  padding: '14px 28px',
-                  borderRadius: '12px',
+                  borderRadius: 12,
                   fontWeight: 700,
-                  fontSize: '14px',
+                  fontSize: 15,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
+                  fontFamily: 'Inter, system-ui, sans-serif',
                 }}
               >
                 {t('exploreProducts')}
@@ -136,15 +172,17 @@ export const HeroSection = memo(function HeroSection() {
             <Link href="/contact" style={{ textDecoration: 'none' }}>
               <button
                 style={{
+                  height: 56,
+                  padding: '0 32px',
                   background: '#fff',
-                  border: '1px solid #d1d5db',
+                  border: '1.5px solid #d1d5db',
                   color: '#374151',
-                  padding: '14px 28px',
-                  borderRadius: '12px',
+                  borderRadius: 12,
                   fontWeight: 700,
-                  fontSize: '14px',
+                  fontSize: 15,
                   cursor: 'pointer',
                   whiteSpace: 'nowrap',
+                  fontFamily: 'Inter, system-ui, sans-serif',
                 }}
               >
                 {t('contactUs')}
@@ -154,24 +192,68 @@ export const HeroSection = memo(function HeroSection() {
           </div>
         </div>
 
-        {/* Right: placeholder for background + product composition */}
+        {/* ── Right 55%: seamless product image ── */}
         <div
+          className="hero-right"
           style={{
             flex: '0 0 55%',
-            position: 'relative',
-            minHeight: 'clamp(400px, 40vw, 560px)',
-            background: 'linear-gradient(160deg, #e8f0fe 0%, #f0f4ff 50%, #f5f7fa 100%)',
-            borderRadius: '24px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
-          <span style={{ color: '#94a3b8', fontSize: '14px', fontWeight: 600 }}>
-            Product Image Composition
-          </span>
+          <Image
+            src="/images/背景.png"
+            alt=""
+            width={964}
+            height={931}
+            priority
+            sizes="(max-width: 768px) 90vw, 55vw"
+            style={{
+              width: '100%',
+              height: 'auto',
+              maxWidth: 700,
+              objectFit: 'contain',
+            }}
+          />
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 1024px) {
+          .hero-left h1 {
+            font-size: 56px !important;
+          }
+        }
+        @media (max-width: 768px) {
+          .hero-inner {
+            flex-direction: column !important;
+            padding: 48px 24px !important;
+            gap: 48px;
+          }
+          .hero-left {
+            flex: 0 0 auto !important;
+            max-width: 100% !important;
+            width: 100%;
+          }
+          .hero-left h1 {
+            font-size: 42px !important;
+          }
+          .hero-right {
+            flex: 0 0 auto !important;
+            width: 100%;
+            order: 1;
+          }
+          .hero-buttons {
+            flex-direction: column !important;
+            align-items: stretch !important;
+          }
+          .hero-buttons button {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      `}</style>
     </section>
   );
 });
