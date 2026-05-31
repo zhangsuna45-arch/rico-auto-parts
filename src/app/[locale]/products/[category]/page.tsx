@@ -77,7 +77,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: `/${locale}` },
-          { name: 'Products', url: `/${locale}/products` },
           { name: categoryData.name, url: `/${locale}/products/${categoryData.slug}` },
         ]}
       />
@@ -100,10 +99,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         >
           <Link href="/" style={{ color: '#2563eb', textDecoration: 'none' }}>
             Home
-          </Link>
-          <span> / </span>
-          <Link href="/products" style={{ color: '#2563eb', textDecoration: 'none' }}>
-            Products
           </Link>
           <span> / </span>
           <span>{categoryData.name}</span>
@@ -287,7 +282,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               {t('noProductsInCategory')}
             </p>
             <Link
-              href="/products"
+              href="/"
               style={{
                 color: '#2563eb',
                 fontWeight: 600,

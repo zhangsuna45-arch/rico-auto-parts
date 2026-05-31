@@ -7,6 +7,25 @@ import { LangSwitcher } from './LangSwitcher';
 import { categories } from '@/data/categories';
 import { seriesList } from '@/data/series';
 
+const interiorSeries = seriesList.filter((s) => s.categorySlug === 'interior-accessories');
+const airFreshenerSeries = seriesList.filter((s) => s.categorySlug === 'air-fresheners');
+const electronicsSeries = seriesList.filter((s) => s.categorySlug === 'electronics');
+const lightingSeries = seriesList.filter((s) => s.categorySlug === 'lighting');
+const exteriorSeries = seriesList.filter((s) => s.categorySlug === 'exterior-accessories');
+
+const utilitySeries = seriesList.filter((s) => {
+  const slugs = ['phone-holders', 'car-trays', 'luggage-holders', 'car-refrigerators', 'air-inflators', 'air-vents'];
+  return s.categorySlug === 'utility-safety-products' && slugs.includes(s.slug);
+});
+const safetySeries = seriesList.filter((s) => {
+  const slugs = ['baby-seats', 'safety-belts', 'buckles', 'car-locks', 'snow-chains'];
+  return s.categorySlug === 'utility-safety-products' && slugs.includes(s.slug);
+});
+const maintenanceSeries = seriesList.filter((s) => {
+  const slugs = ['air-filters', 'batteries', 'cigarette-lighters'];
+  return s.categorySlug === 'utility-safety-products' && slugs.includes(s.slug);
+});
+
 export function Navbar() {
   const t = useTranslations('nav');
   const [menuOpen, setMenuOpen] = useState(false);
@@ -25,9 +44,9 @@ export function Navbar() {
     >
       <div
         style={{
-          maxWidth: '1500px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: '24px 60px',
+          padding: '20px 60px',
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -37,7 +56,7 @@ export function Navbar() {
           <div style={{ cursor: 'pointer' }}>
             <h1
               style={{
-                fontSize: '38px',
+                fontSize: '32px',
                 fontWeight: 900,
                 color: '#2563eb',
                 lineHeight: 1,
@@ -48,11 +67,11 @@ export function Navbar() {
             </h1>
             <p
               style={{
-                fontSize: '11px',
+                fontSize: '10px',
                 letterSpacing: '5px',
                 color: '#64748b',
-                marginTop: '6px',
-                margin: '6px 0 0 0',
+                marginTop: '4px',
+                margin: '4px 0 0 0',
               }}
             >
               CAR ACCESSORIES
@@ -73,20 +92,20 @@ export function Navbar() {
             {t('home')}
           </Link>
 
-          {/* Products dropdown */}
+          {/* Products — menu trigger only (no page navigation) */}
           <div
             style={{ position: 'relative' }}
             onMouseEnter={() => setMenuOpen(true)}
           >
-            <Link
-              href="/products"
+            <span
               style={{
-                textDecoration: 'none',
-                color: 'inherit',
+                cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 gap: '4px',
+                userSelect: 'none',
               }}
+              onClick={() => setMenuOpen(!menuOpen)}
             >
               {t('products')}
               <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
@@ -98,9 +117,9 @@ export function Navbar() {
                   strokeLinejoin="round"
                 />
               </svg>
-            </Link>
+            </span>
 
-            {/* Mega menu dropdown */}
+            {/* Mega menu — 3 columns */}
             {menuOpen && (
               <div
                 style={{
@@ -113,7 +132,7 @@ export function Navbar() {
                   boxShadow: '0 20px 60px rgba(15,23,42,0.12), 0 2px 8px rgba(15,23,42,0.06)',
                   border: '1px solid rgba(15,23,42,0.08)',
                   padding: '32px',
-                  minWidth: '720px',
+                  minWidth: '780px',
                   zIndex: 200,
                 }}
               >
@@ -124,49 +143,70 @@ export function Navbar() {
                     gap: '32px',
                   }}
                 >
-                  {categories.map((cat) => {
-                    const catSeries = seriesList.filter((s) => s.categorySlug === cat.slug);
-                    return (
-                      <div key={cat.slug}>
-                        <Link
-                          href={`/products/${cat.slug}`}
-                          style={{
-                            textDecoration: 'none',
-                            color: '#0f172a',
-                            fontWeight: 800,
-                            fontSize: '14px',
-                            paddingBottom: '8px',
-                            marginBottom: '8px',
-                            borderBottom: '2px solid #2563eb',
-                            display: 'inline-block',
-                          }}
-                          onClick={() => setMenuOpen(false)}
-                        >
-                          {cat.name}
-                        </Link>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginTop: '8px' }}>
-                          {catSeries.map((s) => (
-                            <Link
-                              key={s.id}
-                              href={`/products/${cat.slug}/${s.slug}`}
-                              style={{
-                                textDecoration: 'none',
-                                color: '#64748b',
-                                fontSize: '13px',
-                                fontWeight: 500,
-                                padding: '3px 0',
-                                display: 'block',
-                                transition: 'color 0.15s',
-                              }}
-                              onClick={() => setMenuOpen(false)}
-                            >
-                              {s.name}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
+                  {/* Column 1: Interior Accessories + Air Fresheners */}
+                  <div>
+                    <MenuCategory
+                      name={categories.find((c) => c.slug === 'interior-accessories')?.name || 'Interior Accessories'}
+                      slug="interior-accessories"
+                      series={interiorSeries}
+                      onClose={() => setMenuOpen(false)}
+                    />
+                    <div style={{ height: '24px' }} />
+                    <MenuCategory
+                      name={categories.find((c) => c.slug === 'air-fresheners')?.name || 'Air Fresheners'}
+                      slug="air-fresheners"
+                      series={airFreshenerSeries}
+                      onClose={() => setMenuOpen(false)}
+                    />
+                  </div>
+
+                  {/* Column 2: Electronics + Lighting */}
+                  <div>
+                    <MenuCategory
+                      name={categories.find((c) => c.slug === 'electronics')?.name || 'Electronics'}
+                      slug="electronics"
+                      series={electronicsSeries}
+                      onClose={() => setMenuOpen(false)}
+                    />
+                    <div style={{ height: '24px' }} />
+                    <MenuCategory
+                      name={categories.find((c) => c.slug === 'lighting')?.name || 'Lighting'}
+                      slug="lighting"
+                      series={lightingSeries}
+                      onClose={() => setMenuOpen(false)}
+                    />
+                  </div>
+
+                  {/* Column 3: Exterior + Utility + Safety + Maintenance */}
+                  <div>
+                    <MenuCategory
+                      name={categories.find((c) => c.slug === 'exterior-accessories')?.name || 'Exterior Accessories'}
+                      slug="exterior-accessories"
+                      series={exteriorSeries}
+                      onClose={() => setMenuOpen(false)}
+                    />
+                    <div style={{ height: '24px' }} />
+                    <MenuGroup
+                      label="Utility Products"
+                      series={utilitySeries}
+                      categorySlug="utility-safety-products"
+                      onClose={() => setMenuOpen(false)}
+                    />
+                    <div style={{ height: '20px' }} />
+                    <MenuGroup
+                      label="Safety Products"
+                      series={safetySeries}
+                      categorySlug="utility-safety-products"
+                      onClose={() => setMenuOpen(false)}
+                    />
+                    <div style={{ height: '20px' }} />
+                    <MenuGroup
+                      label="Maintenance & Accessories"
+                      series={maintenanceSeries}
+                      categorySlug="utility-safety-products"
+                      onClose={() => setMenuOpen(false)}
+                    />
+                  </div>
                 </div>
               </div>
             )}
@@ -191,7 +231,7 @@ export function Navbar() {
             style={{
               background: '#2563eb',
               color: '#fff',
-              padding: '14px 24px',
+              padding: '12px 22px',
               borderRadius: '999px',
               fontWeight: 800,
               textDecoration: 'none',
@@ -203,5 +243,107 @@ export function Navbar() {
         </nav>
       </div>
     </header>
+  );
+}
+
+function MenuCategory({
+  name,
+  slug,
+  series,
+  onClose,
+}: {
+  name: string;
+  slug: string;
+  series: { name: string; slug: string; categorySlug: string }[];
+  onClose: () => void;
+}) {
+  return (
+    <div>
+      <Link
+        href={`/products/${slug}`}
+        style={{
+          textDecoration: 'none',
+          color: '#0f172a',
+          fontWeight: 800,
+          fontSize: '13px',
+          paddingBottom: '6px',
+          marginBottom: '6px',
+          borderBottom: '2px solid #2563eb',
+          display: 'inline-block',
+        }}
+        onClick={onClose}
+      >
+        {name}
+      </Link>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '6px' }}>
+        {series.map((s) => (
+          <Link
+            key={s.slug}
+            href={`/products/${s.categorySlug}/${s.slug}`}
+            style={{
+              textDecoration: 'none',
+              color: '#64748b',
+              fontSize: '12px',
+              fontWeight: 500,
+              padding: '2px 0',
+              display: 'block',
+            }}
+            onClick={onClose}
+          >
+            {s.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MenuGroup({
+  label,
+  series,
+  categorySlug,
+  onClose,
+}: {
+  label: string;
+  series: { name: string; slug: string; categorySlug: string }[];
+  categorySlug: string;
+  onClose: () => void;
+}) {
+  return (
+    <div>
+      <span
+        style={{
+          color: '#94a3b8',
+          fontWeight: 700,
+          fontSize: '10px',
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          paddingBottom: '4px',
+          display: 'inline-block',
+          marginBottom: '4px',
+        }}
+      >
+        {label}
+      </span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', marginTop: '2px' }}>
+        {series.map((s) => (
+          <Link
+            key={s.slug}
+            href={`/products/${categorySlug}/${s.slug}`}
+            style={{
+              textDecoration: 'none',
+              color: '#64748b',
+              fontSize: '12px',
+              fontWeight: 500,
+              padding: '2px 0',
+              display: 'block',
+            }}
+            onClick={onClose}
+          >
+            {s.name}
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }

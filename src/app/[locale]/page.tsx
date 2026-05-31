@@ -109,9 +109,9 @@ export default async function Home({ params }: HomeProps) {
       {/* 2. PRODUCT CATEGORIES */}
       <section
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
+          padding: '100px 24px',
         }}
       >
         <div style={{ marginBottom: '40px' }}>
@@ -132,16 +132,16 @@ export default async function Home({ params }: HomeProps) {
         </div>
       </section>
 
-      {/* 3. WHY CHOOSE US (merged: Sourcing Partner + OEM Expertise) */}
+      {/* 3. WHY CHOOSE US */}
       <section
         style={{
           background: '#fff',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
+          padding: '100px 24px',
         }}
       >
         <div
           style={{
-            maxWidth: '1280px',
+            maxWidth: '1400px',
             margin: '0 auto',
           }}
         >
@@ -163,7 +163,7 @@ export default async function Home({ params }: HomeProps) {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: '28px',
+              gap: '24px',
             }}
           >
             {[
@@ -181,6 +181,7 @@ export default async function Home({ params }: HomeProps) {
                   borderRadius: '16px',
                   padding: '32px 26px',
                   border: '1px solid rgba(15,23,42,0.05)',
+                  boxShadow: '0 4px 16px rgba(15,23,42,0.03)',
                 }}
               >
                 <h3
@@ -212,10 +213,9 @@ export default async function Home({ params }: HomeProps) {
       {/* 4. SIMPLE 5-STEP SOURCING PROCESS */}
       <section
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
-          textAlign: 'center',
+          padding: '100px 24px',
         }}
       >
         <SectionLabel text={t('processLabel')} />
@@ -225,7 +225,7 @@ export default async function Home({ params }: HomeProps) {
             fontSize: '16px',
             color: '#64748b',
             maxWidth: '560px',
-            margin: '0 auto 48px auto',
+            margin: '0 0 48px 0',
             lineHeight: 1.7,
           }}
         >
@@ -235,8 +235,8 @@ export default async function Home({ params }: HomeProps) {
         <div
           style={{
             display: 'flex',
-            justifyContent: 'center',
-            gap: '0',
+            justifyContent: 'flex-start',
+            gap: '24px',
             flexWrap: 'wrap',
           }}
         >
@@ -246,17 +246,17 @@ export default async function Home({ params }: HomeProps) {
             { step: '03', title: t('step3Title'), desc: t('step3Desc') },
             { step: '04', title: t('step4Title'), desc: t('step4Desc') },
             { step: '05', title: t('step5Title'), desc: t('step5Desc') },
-          ].map((item, idx) => (
+          ].map((item) => (
             <div
               key={item.step}
               style={{
                 background: '#fff',
                 borderRadius: '16px',
-                padding: '36px 24px',
+                padding: '36px 28px',
                 border: '1px solid rgba(15,23,42,0.06)',
                 boxShadow: '0 4px 16px rgba(15,23,42,0.03)',
                 flex: '1 1 180px',
-                maxWidth: '220px',
+                maxWidth: '240px',
               }}
             >
               <div
@@ -271,7 +271,7 @@ export default async function Home({ params }: HomeProps) {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  margin: '0 auto 14px auto',
+                  margin: '0 0 14px 0',
                 }}
               >
                 {item.step}
@@ -304,9 +304,9 @@ export default async function Home({ params }: HomeProps) {
       {/* 5. LATEST ARTICLES */}
       <section
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
+          padding: '100px 24px',
         }}
       >
         <div
@@ -339,7 +339,7 @@ export default async function Home({ params }: HomeProps) {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-            gap: '28px',
+            gap: '24px',
           }}
         >
           {blogPreview.map((post) => (
@@ -348,13 +348,12 @@ export default async function Home({ params }: HomeProps) {
         </div>
       </section>
 
-      {/* 6. FINAL CTA — Let's Grow Your Business Together */}
+      {/* 6. FINAL CTA */}
       <section
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
-          textAlign: 'center',
+          padding: '100px 24px',
         }}
       >
         <div
@@ -383,7 +382,7 @@ export default async function Home({ params }: HomeProps) {
               fontSize: '16px',
               color: '#64748b',
               maxWidth: '520px',
-              margin: '0 auto 32px auto',
+              margin: '0 0 32px 0',
               lineHeight: 1.7,
             }}
           >
@@ -392,12 +391,11 @@ export default async function Home({ params }: HomeProps) {
           <div
             style={{
               display: 'flex',
-              justifyContent: 'center',
               gap: '14px',
               flexWrap: 'wrap',
             }}
           >
-            <Link href="/products">
+            <Link href="/">
               <button
                 style={{
                   background: '#2563eb',

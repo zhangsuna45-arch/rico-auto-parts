@@ -74,7 +74,6 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: `/${locale}` },
-          { name: 'Products', url: `/${locale}/products` },
           { name: categoryData.name, url: `/${locale}/products/${categoryData.slug}` },
           { name: seriesData.name, url: `/${locale}/products/${categoryData.slug}/${seriesData.slug}` },
         ]}
@@ -98,10 +97,6 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
         >
           <Link href="/" style={{ color: '#2563eb', textDecoration: 'none' }}>
             Home
-          </Link>
-          <span> / </span>
-          <Link href="/products" style={{ color: '#2563eb', textDecoration: 'none' }}>
-            Products
           </Link>
           <span> / </span>
           <Link

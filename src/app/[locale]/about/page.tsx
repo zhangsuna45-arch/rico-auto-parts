@@ -135,12 +135,12 @@ export default async function About({ params }: AboutProps) {
         </p>
       </div>
 
-      {/* 1. COMPANY INTRODUCTION — Your Trusted Sourcing Partner */}
+      {/* 1. COMPANY INTRODUCTION */}
       <section
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
+          padding: '100px 24px',
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: 'clamp(40px, 6vw, 70px)',
@@ -194,10 +194,10 @@ export default async function About({ params }: AboutProps) {
       <section
         style={{
           background: '#fff',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
+          padding: '100px 24px',
         }}
       >
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <SectionLabel text={t('whatWeDoLabel')} />
           <SectionHeading text={t('whatWeDoHeading')} />
           <p
@@ -234,6 +234,7 @@ export default async function About({ params }: AboutProps) {
                   borderRadius: '16px',
                   padding: '32px 26px',
                   border: '1px solid rgba(15,23,42,0.05)',
+                  boxShadow: '0 4px 16px rgba(15,23,42,0.03)',
                 }}
               >
                 <div style={{ fontSize: '32px', marginBottom: '14px' }}>{item.icon}</div>
@@ -266,17 +267,15 @@ export default async function About({ params }: AboutProps) {
       {/* 3. FAQ */}
       <section
         style={{
-          maxWidth: '1280px',
+          maxWidth: '1400px',
           margin: '0 auto',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
+          padding: '100px 24px',
         }}
       >
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <SectionLabel text={tHome('faqLabel')} />
-          <SectionHeading text={tHome('faqHeading')} />
-        </div>
+        <SectionLabel text={tHome('faqLabel')} />
+        <SectionHeading text={tHome('faqHeading')} />
 
-        <div style={{ maxWidth: '800px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '12px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {[
             { q: tHome('faqQ1'), a: tHome('faqA1') },
             { q: tHome('faqQ2'), a: tHome('faqA2') },
@@ -328,15 +327,15 @@ export default async function About({ params }: AboutProps) {
       {/* 4. FINAL CTA */}
       <section
         style={{
-          maxWidth: '1280px',
-          margin: '0 auto',
-          padding: 'clamp(56px, 8vw, 88px) 24px',
-          textAlign: 'center',
+          background: '#fff',
+          padding: '100px 24px',
         }}
       >
         <div
           style={{
-            background: '#fff',
+            maxWidth: '1400px',
+            margin: '0 auto',
+            background: '#f7f9fc',
             borderRadius: '24px',
             padding: 'clamp(48px, 6vw, 72px) 32px',
             border: '1px solid rgba(15,23,42,0.06)',
@@ -360,7 +359,7 @@ export default async function About({ params }: AboutProps) {
               fontSize: '16px',
               color: '#64748b',
               maxWidth: '520px',
-              margin: '0 auto 32px auto',
+              margin: '0 0 32px 0',
               lineHeight: 1.7,
             }}
           >
@@ -369,7 +368,6 @@ export default async function About({ params }: AboutProps) {
           <div
             style={{
               display: 'flex',
-              justifyContent: 'center',
               gap: '14px',
               flexWrap: 'wrap',
             }}
@@ -390,7 +388,7 @@ export default async function About({ params }: AboutProps) {
                 {t('ctaContact')}
               </button>
             </Link>
-            <Link href="/products">
+            <Link href="/">
               <button
                 style={{
                   background: '#fff',

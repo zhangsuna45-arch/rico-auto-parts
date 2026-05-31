@@ -107,7 +107,6 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: `/${locale}` },
-          { name: 'Products', url: `/${locale}/products` },
           { name: product.category, url: `/${locale}/products/${product.categorySlug}` },
           { name: product.series, url: `/${locale}/products/${product.categorySlug}/${product.seriesSlug}` },
           { name: product.name, url: productUrl },
@@ -127,10 +126,6 @@ export default async function ProductDetail({ params }: ProductDetailProps) {
         >
           <Link href="/" style={{ color: '#64748b', textDecoration: 'none' }}>
             Home
-          </Link>
-          <span style={{ margin: '0 8px', color: '#cbd5e1' }}>/</span>
-          <Link href="/products" style={{ color: '#64748b', textDecoration: 'none' }}>
-            Products
           </Link>
           <span style={{ margin: '0 8px', color: '#cbd5e1' }}>/</span>
           <Link
